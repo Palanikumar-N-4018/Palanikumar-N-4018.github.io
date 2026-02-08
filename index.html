@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Palanikumar & RathiDevi</title>
+<title>For RathiDevi • Palanikumar</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 :root { 
@@ -37,55 +37,68 @@ canvas { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
     backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
 }
 
-.header-box { grid-column: span 2; text-align: center; border-top: 2px solid var(--pink-rich); }
+.header-box { grid-column: span 2; text-align: center; border-bottom: 2px solid var(--pink-rich); }
 .header-box h1 { font-family: 'Cinzel', serif; font-size: 28px; margin: 0; color: var(--pink-rich); letter-spacing: 2px; }
 
-/* The Rephrased Question */
-.question-box { grid-column: span 2; background: rgba(255, 10, 84, 0.03); }
-.question-box p { font-size: 14px; line-height: 1.6; margin: 0; opacity: 0.9; font-weight: 300; }
-.question-box span { display: block; margin-top: 10px; font-family: 'Cinzel', serif; font-size: 17px; color: var(--pink-rich); font-weight: 700; }
+.question-box { grid-column: span 2; background: rgba(255, 10, 84, 0.03); text-align: center; }
+.question-box p { font-size: 13px; line-height: 1.6; margin: 0; opacity: 0.8; }
+.question-box span { display: block; margin-top: 10px; font-family: 'Cinzel', serif; font-size: 18px; color: var(--pink-rich); font-weight: 700; text-transform: uppercase; }
 
 #convince-msg { 
     grid-column: span 2; font-size: 13px; color: #ff85a2; 
-    text-align: center; min-height: 40px; font-style: italic; 
-    animation: fadeIn 0.3s; 
+    text-align: center; min-height: 55px; font-style: italic; 
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 15px; background: rgba(0,0,0,0.2); border-radius: 15px;
 }
 
 .date-box { grid-column: span 1; text-align: center; }
+.date-box span { font-size: 10px; color: var(--pink-rich); letter-spacing: 1px; }
 .date-box b { font-family: 'Cinzel', serif; font-size: 16px; color: white; display: block; margin-top: 5px; }
 
-/* Buttons */
-.action-area { grid-column: span 2; height: 160px; position: relative; display: flex; flex-direction: column; gap: 10px; justify-content: center; }
+.action-area { grid-column: span 2; height: 160px; position: relative; display: flex; flex-direction: column; gap: 12px; justify-content: center; }
 
-.btn { width: 100%; padding: 18px; border-radius: 50px; border: none; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+.btn { width: 100%; padding: 18px; border-radius: 50px; border: none; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: 0.2s; }
 
-#yes { background: var(--pink-rich); color: white; box-shadow: 0 0 20px var(--pink-glow); text-transform: uppercase; z-index: 10; }
-
-#no { 
-    background: #1a1a1a; color: #777; border: 1px solid #333; 
-    transition: transform 0.1s, clip-path 0.3s ease; 
-    position: relative; overflow: hidden;
+#yes { 
+    background: var(--pink-rich); color: white; 
+    box-shadow: 0 0 25px var(--pink-glow); 
+    text-transform: uppercase; z-index: 10;
 }
 
-/* Breaking Animation */
+/* Light Colored Button for Visible Damage */
+#no { 
+    background: rgba(255, 255, 255, 0.9); 
+    color: #333; 
+    border: 2px solid #fff;
+    transition: transform 0.1s, clip-path 0.3s ease, opacity 0.3s; 
+    position: relative;
+    box-shadow: 0 0 15px rgba(255,255,255,0.2);
+}
+
 .shake { animation: shake 0.2s ease-in-out; }
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px) rotate(-1deg); }
-    75% { transform: translateX(5px) rotate(1deg); }
+    25% { transform: translateX(-6px) rotate(-1deg); }
+    75% { transform: translateX(6px) rotate(1deg); }
 }
 
-/* Final View */
 #final-view { position: fixed; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 100; text-align: center; background: var(--bg); }
-.heart-loader { width: 50px; height: 50px; background: var(--pink-rich); transform: rotate(45deg); animation: beat 1.2s infinite; position: relative; margin: 20px; }
-.heart-loader:before, .heart-loader:after { content: ""; width: 50px; height: 50px; background: var(--pink-rich); border-radius: 50%; position: absolute; }
-.heart-loader:before { left: -25px; } .heart-loader:after { top: -25px; }
-@keyframes beat { 0%, 100% { transform: scale(1) rotate(45deg); } 50% { transform: scale(1.1) rotate(45deg); } }
 
-.progress-bar { width: 200px; height: 2px; background: #222; margin-top: 20px; overflow: hidden; }
-.progress-fill { width: 0%; height: 100%; background: var(--pink-rich); transition: 0.1s; }
+/* Beating Heart Loader */
+.heart-loader { 
+    width: 60px; height: 60px; background: var(--pink-rich); 
+    transform: rotate(45deg); animation: beat 0.8s infinite; 
+    position: relative; margin: 30px; 
+    box-shadow: 0 0 30px var(--pink-glow);
+}
+.heart-loader:before, .heart-loader:after { content: ""; width: 60px; height: 60px; background: var(--pink-rich); border-radius: 50%; position: absolute; }
+.heart-loader:before { left: -30px; } .heart-loader:after { top: -30px; }
 
-@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes beat { 0%, 100% { transform: scale(1) rotate(45deg); } 50% { transform: scale(1.2) rotate(45deg); } }
+
+.progress-bar { width: 220px; height: 3px; background: #222; margin-top: 20px; border-radius: 10px; overflow: hidden; }
+.progress-fill { width: 0%; height: 100%; background: var(--pink-rich); box-shadow: 0 0 10px var(--pink-rich); }
+
 </style>
 </head>
 <body>
@@ -99,14 +112,14 @@ canvas { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
     </div>
 
     <div class="box question-box">
-        <p>From the moment we met on April 19, my world changed. Now, I want to make every moment permanent.</p>
+        <p>Since our first conversation on April 19, you've been my only thought.</p>
         <span>Will you marry me, Rathi?</span>
     </div>
 
-    <div id="convince-msg">Palanikumar is waiting for your heart... ❤️</div>
+    <div id="convince-msg">Palanikumar is waiting for your 'Yes'... ❤️</div>
 
-    <div class="box date-box"><span>MET</span><b>APR 19</b></div>
-    <div class="box date-box"><span>WEDDING</span><b>MAY 18</b></div>
+    <div class="box date-box"><span>FIRST MET</span><b>APR 19</b></div>
+    <div class="box date-box"><span>OUR BIG DAY</span><b>MAY 18</b></div>
 
     <div class="action-area">
         <button class="btn" id="yes">YES, I DO! 💍</button>
@@ -115,10 +128,10 @@ canvas { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
 </div>
 
 <div id="final-view">
-    <h2 style="font-family: 'Cinzel', serif; font-size: 32px; color: var(--pink-rich);">FOREVER STARTS NOW</h2>
+    <h2 style="font-family: 'Cinzel', serif; font-size: 32px; color: var(--pink-rich); letter-spacing: 3px;">FOREVER COMMITTED</h2>
     <div class="heart-loader"></div>
     <div class="progress-bar"><div class="progress-fill" id="p-fill"></div></div>
-    <p style="font-size: 10px; margin-top: 15px; letter-spacing: 2px; opacity: 0.5;">LOADING OUR STORY...</p>
+    <p style="font-size: 11px; margin-top: 20px; letter-spacing: 3px; opacity: 0.6; color: var(--pink-rich);">OPENING OUR MEMORIES...</p>
 </div>
 
 <script>
@@ -129,52 +142,59 @@ const grid = document.getElementById('grid');
 const finalView = document.getElementById('final-view');
 const pFill = document.getElementById('p-fill');
 
+// SET YOUR INSTAGRAM LINK HERE
+const instagramLink = "https://www.instagram.com/palanikumar_18/"; 
+
+// Logical step-by-step convincing messages
 const messages = [
-    "I'll buy you the biggest, fluffiest Teddy Bear! 🧸", // 10%
-    "We'll travel to every 'cool' place on your bucket list! 🌍", // 20%
-    "I promise to make you go 'Aww' & 'Haha' every single day! 😄", // 30%
-    "I'll be the one to hold the umbrella in every storm. ☔", // 40%
-    "I'll remember every small detail that makes you smile. ✨", // 50%
-    "My home is wherever you are, RathiDevi. 🏠", // 60%
-    "Wait... the button is starting to crack! Stop! 😰", // 70%
-    "I'll never let a day go by without saying I love you. ❤️", // 80%
-    "You're my soulmate, my best friend, my everything. ♾️", // 90%
-    "The button is gone... There is only one answer left. ❤️" // 100%
+    "I'll buy you the biggest, fluffiest Teddy Bear ever! 🧸", // 10%
+    "We'll explore every cool and aesthetic place together! 🌍", // 20%
+    "I promise to make you go 'Aww' and 'Haha' every day! 😄", // 30%
+    "I'll be your strength in every storm we face. ☔", // 40%
+    "I'll remember every tiny detail that makes you smile. ✨", // 50%
+    "My home is not a place, it's wherever you are. 🏠", // 60%
+    "Wait... the button is actually breaking! Please stop! 😰", // 70%
+    "I'll never let a single day pass without saying I love you. ❤️", // 80%
+    "You are my soulmate, my best friend, and my future. ♾️", // 90%
+    "The 'No' button is gone. There's only one path now... ❤️" // 100%
 ];
 
 let clicks = 0;
 
-// Logical "Breaking" clip-paths for 10% increments
+// Jagged "Shatter" damage steps (polygon cuts)
 const damageSteps = [
-    "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", // 0%
-    "polygon(5% 0%, 100% 0%, 100% 100%, 0% 95%)",  // 10%
-    "polygon(10% 5%, 95% 0%, 100% 100%, 5% 90%)", // 20%
-    "polygon(15% 10%, 90% 5%, 95% 95%, 10% 85%)", // 30%
-    "polygon(20% 15%, 85% 10%, 90% 90%, 15% 80%)", // 40%
-    "polygon(25% 20%, 80% 15%, 85% 85%, 20% 75%)", // 50%
-    "polygon(35% 25%, 75% 20%, 80% 80%, 30% 65%)", // 60%
-    "polygon(45% 35%, 70% 30%, 75% 75%, 40% 55%)", // 70%
-    "polygon(55% 45%, 65% 40%, 70% 70%, 50% 45%)", // 80%
-    "polygon(65% 55%, 60% 50%, 65% 65%, 60% 55%)", // 90%
-    "none" // 100% - Disappear
+    "none", // 0%
+    "polygon(0% 15%, 15% 0%, 100% 0%, 100% 100%, 0% 100%)", // 10%
+    "polygon(0% 15%, 15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 0% 100%)", // 20%
+    "polygon(10% 20%, 20% 10%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 0% 90%)", // 30%
+    "polygon(15% 25%, 25% 15%, 75% 5%, 95% 25%, 100% 75%, 75% 95%, 5% 85%)", // 40%
+    "polygon(20% 30%, 30% 20%, 70% 10%, 90% 30%, 95% 70%, 70% 90%, 10% 80%)", // 50%
+    "polygon(30% 40%, 40% 30%, 65% 20%, 85% 40%, 90% 65%, 65% 85%, 20% 70%)", // 60%
+    "polygon(40% 50%, 50% 40%, 60% 30%, 80% 50%, 85% 60%, 60% 80%, 30% 60%)", // 70%
+    "polygon(45% 55%, 55% 45%, 55% 45%, 75% 55%, 80% 55%, 55% 75%, 40% 55%)", // 80%
+    "polygon(50% 50%, 55% 50%, 55% 50%, 60% 55%, 60% 55%, 55% 60%, 50% 55%)", // 90%
+    "none" // 100%
 ];
 
 noBtn.addEventListener('click', () => {
     if (clicks < 10) {
-        // Impact effect
+        // Shatter Shake
         noBtn.classList.add('shake');
         setTimeout(() => noBtn.classList.remove('shake'), 200);
 
-        // Update Text
+        // Update Text Step-by-Step
         msgBox.innerHTML = messages[clicks];
         
-        // Update Visual Damage
+        // Apply Damage Visuals
         clicks++;
         noBtn.style.clipPath = damageSteps[clicks];
+        noBtn.style.opacity = (1.1 - (clicks/10)); // Button fades as it breaks
         
         if (clicks === 10) {
-            setTimeout(() => {
-                noBtn.style.display = 'none';
+            setTimeout(() => { 
+                noBtn.style.display = 'none'; 
+                msgBox.style.color = "var(--pink-rich)";
+                msgBox.style.fontWeight = "700";
             }, 300);
         }
     }
@@ -182,11 +202,11 @@ noBtn.addEventListener('click', () => {
 
 yesBtn.onclick = () => {
     grid.style.opacity = '0';
-    grid.style.transform = 'scale(0.9)';
+    grid.style.transform = 'translateY(-20px)';
     setTimeout(() => {
         grid.style.display = 'none';
         finalView.style.display = 'flex';
-        finalView.style.opacity = '1';
+        setTimeout(() => { finalView.style.opacity = '1'; }, 50);
         startCelebration();
         
         let w = 0;
@@ -195,13 +215,13 @@ yesBtn.onclick = () => {
             pFill.style.width = w + '%';
             if(w >= 100) {
                 clearInterval(bar);
-                window.location.href = "https://open.spotify.com/playlist/37i9dQZF1DX4pUKp1EXpTu"; // Example romantic playlist
+                window.location.href = instagramLink;
             }
-        }, 100);
+        }, 80); // Fills in ~8 seconds
     }, 800);
 };
 
-// Firework Logic
+// Firework Celebration Logic
 const canvas = document.getElementById('fireworks');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -217,16 +237,16 @@ function animate() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     if (Math.random() < 0.2) {
         const x = Math.random() * canvas.width;
-        for(let i=0; i<30; i++) {
+        for(let i=0; i<20; i++) {
             particles.push({
                 x: x, y: canvas.height,
-                vx: Math.random() * 4 - 2, vy: -Math.random() * 12 - 5,
+                vx: Math.random() * 4 - 2, vy: -Math.random() * 10 - 5,
                 life: 1, c: '#ff0a54'
             });
         }
     }
     particles.forEach((p, i) => {
-        p.x += p.vx; p.y += p.vy; p.vy += 0.15; p.life -= 0.015;
+        p.x += p.vx; p.y += p.vy; p.vy += 0.12; p.life -= 0.015;
         ctx.globalAlpha = p.life;
         ctx.fillStyle = p.c;
         ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI*2); ctx.fill();
@@ -237,3 +257,4 @@ function animate() {
 </script>
 </body>
 </html>
+
