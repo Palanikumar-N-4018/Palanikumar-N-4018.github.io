@@ -65,26 +65,24 @@ canvas { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
     text-transform: uppercase; z-index: 10;
 }
 
-/* Light Colored Button for Visible Damage */
 #no { 
-    background: rgba(255, 255, 255, 0.9); 
-    color: #333; 
+    background: rgba(255, 255, 255, 0.95); 
+    color: #111; 
     border: 2px solid #fff;
     transition: transform 0.1s, clip-path 0.3s ease, opacity 0.3s; 
     position: relative;
-    box-shadow: 0 0 15px rgba(255,255,255,0.2);
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
 }
 
 .shake { animation: shake 0.2s ease-in-out; }
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-6px) rotate(-1deg); }
-    75% { transform: translateX(6px) rotate(1deg); }
+    25% { transform: translateX(-6px) rotate(-1.2deg); }
+    75% { transform: translateX(6px) rotate(1.2deg); }
 }
 
 #final-view { position: fixed; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 100; text-align: center; background: var(--bg); }
 
-/* Beating Heart Loader */
 .heart-loader { 
     width: 60px; height: 60px; background: var(--pink-rich); 
     transform: rotate(45deg); animation: beat 0.8s infinite; 
@@ -131,7 +129,7 @@ canvas { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
     <h2 style="font-family: 'Cinzel', serif; font-size: 32px; color: var(--pink-rich); letter-spacing: 3px;">FOREVER COMMITTED</h2>
     <div class="heart-loader"></div>
     <div class="progress-bar"><div class="progress-fill" id="p-fill"></div></div>
-    <p style="font-size: 11px; margin-top: 20px; letter-spacing: 3px; opacity: 0.6; color: var(--pink-rich);">OPENING OUR MEMORIES...</p>
+    <p style="font-size: 11px; margin-top: 20px; letter-spacing: 3px; opacity: 0.6; color: var(--pink-rich);">OPENING OUR SONG...</p>
 </div>
 
 <script>
@@ -142,53 +140,47 @@ const grid = document.getElementById('grid');
 const finalView = document.getElementById('final-view');
 const pFill = document.getElementById('p-fill');
 
-// SET YOUR INSTAGRAM LINK HERE
-const instagramLink = "https://www.instagram.com/palanikumar_18/"; 
+// REVERTED TO SPOTIFY LINK AS REQUESTED
+const spotifyLink = "Https://open.spotify.com/track/5NEGfbKMcNuEWOzpWufScA?si=83BpK46dRl2JxfYJ2aZZTg"; 
 
-// Logical step-by-step convincing messages
 const messages = [
-    "I'll buy you the biggest, fluffiest Teddy Bear ever! 🧸", // 10%
-    "We'll explore every cool and aesthetic place together! 🌍", // 20%
-    "I promise to make you go 'Aww' and 'Haha' every day! 😄", // 30%
-    "I'll be your strength in every storm we face. ☔", // 40%
-    "I'll remember every tiny detail that makes you smile. ✨", // 50%
-    "My home is not a place, it's wherever you are. 🏠", // 60%
-    "Wait... the button is actually breaking! Please stop! 😰", // 70%
-    "I'll never let a single day pass without saying I love you. ❤️", // 80%
-    "You are my soulmate, my best friend, and my future. ♾️", // 90%
-    "The 'No' button is gone. There's only one path now... ❤️" // 100%
+    "I'll buy you the biggest, fluffiest Teddy Bear ever! 🧸",
+    "We'll explore every cool and aesthetic place together! 🌍",
+    "I promise to make you go 'Aww' and 'Haha' every day! 😄",
+    "I'll be your strength in every storm we face. ☔",
+    "I'll remember every tiny detail that makes you smile. ✨",
+    "My home is not a place, it's wherever you are. 🏠",
+    "Wait... the button is actually breaking! Please stop! 😰",
+    "I'll never let a single day pass without saying I love you. ❤️",
+    "You are my soulmate, my best friend, and my future. ♾️",
+    "The 'No' button is gone. There's only one path now... ❤️"
 ];
 
 let clicks = 0;
 
 // Jagged "Shatter" damage steps (polygon cuts)
 const damageSteps = [
-    "none", // 0%
-    "polygon(0% 15%, 15% 0%, 100% 0%, 100% 100%, 0% 100%)", // 10%
-    "polygon(0% 15%, 15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 0% 100%)", // 20%
-    "polygon(10% 20%, 20% 10%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 0% 90%)", // 30%
-    "polygon(15% 25%, 25% 15%, 75% 5%, 95% 25%, 100% 75%, 75% 95%, 5% 85%)", // 40%
-    "polygon(20% 30%, 30% 20%, 70% 10%, 90% 30%, 95% 70%, 70% 90%, 10% 80%)", // 50%
-    "polygon(30% 40%, 40% 30%, 65% 20%, 85% 40%, 90% 65%, 65% 85%, 20% 70%)", // 60%
-    "polygon(40% 50%, 50% 40%, 60% 30%, 80% 50%, 85% 60%, 60% 80%, 30% 60%)", // 70%
-    "polygon(45% 55%, 55% 45%, 55% 45%, 75% 55%, 80% 55%, 55% 75%, 40% 55%)", // 80%
-    "polygon(50% 50%, 55% 50%, 55% 50%, 60% 55%, 60% 55%, 55% 60%, 50% 55%)", // 90%
-    "none" // 100%
+    "none", 
+    "polygon(0% 15%, 15% 0%, 100% 0%, 100% 100%, 0% 100%)", 
+    "polygon(0% 15%, 15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 0% 100%)", 
+    "polygon(10% 20%, 20% 10%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 0% 90%)", 
+    "polygon(15% 25%, 25% 15%, 75% 5%, 95% 25%, 100% 75%, 75% 95%, 5% 85%)", 
+    "polygon(20% 30%, 30% 20%, 70% 10%, 90% 30%, 95% 70%, 70% 90%, 10% 80%)", 
+    "polygon(30% 40%, 40% 30%, 65% 20%, 85% 40%, 90% 65%, 65% 85%, 20% 70%)", 
+    "polygon(40% 50%, 50% 40%, 60% 30%, 80% 50%, 85% 60%, 60% 80%, 30% 60%)", 
+    "polygon(45% 55%, 55% 45%, 55% 45%, 75% 55%, 80% 55%, 55% 75%, 40% 55%)", 
+    "polygon(50% 50%, 55% 50%, 55% 50%, 60% 55%, 60% 55%, 55% 60%, 50% 55%)", 
+    "none" 
 ];
 
 noBtn.addEventListener('click', () => {
     if (clicks < 10) {
-        // Shatter Shake
         noBtn.classList.add('shake');
         setTimeout(() => noBtn.classList.remove('shake'), 200);
-
-        // Update Text Step-by-Step
         msgBox.innerHTML = messages[clicks];
-        
-        // Apply Damage Visuals
         clicks++;
         noBtn.style.clipPath = damageSteps[clicks];
-        noBtn.style.opacity = (1.1 - (clicks/10)); // Button fades as it breaks
+        noBtn.style.opacity = (1.1 - (clicks/10)); 
         
         if (clicks === 10) {
             setTimeout(() => { 
@@ -215,13 +207,12 @@ yesBtn.onclick = () => {
             pFill.style.width = w + '%';
             if(w >= 100) {
                 clearInterval(bar);
-                window.location.href = instagramLink;
+                window.location.href = spotifyLink;
             }
-        }, 80); // Fills in ~8 seconds
+        }, 80); 
     }, 800);
 };
 
-// Firework Celebration Logic
 const canvas = document.getElementById('fireworks');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -257,4 +248,3 @@ function animate() {
 </script>
 </body>
 </html>
-
