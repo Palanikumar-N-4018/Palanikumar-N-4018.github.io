@@ -11,12 +11,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #050505; /* Darker for better firework visibility */
+    background: #050505;
     font-family: 'Segoe UI', Roboto, sans-serif;
     color: #ffffff;
     overflow: hidden;
   }
 
+  /* Fireworks Canvas - Highest Layer */
   canvas {
     position: fixed;
     top: 0;
@@ -24,7 +25,7 @@
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 20;
+    z-index: 999; /* Higher than card */
   }
 
   .stars {
@@ -49,9 +50,9 @@
     border-radius: 30px;
     padding: 30px 20px;
     box-sizing: border-box;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
     display: flex;
     flex-direction: column;
@@ -66,16 +67,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 77, 141, 0.1);
+    background: rgba(255, 77, 141, 0.15);
     border-radius: 20px;
     padding: 10px;
+    z-index: 11;
   }
 
-  #msg {
-    font-size: 16px;
-    font-weight: 600;
-    color: #ffd1e3;
-  }
+  #msg { font-size: 16px; font-weight: 600; color: #ffd1e3; text-align: center; }
 
   h1 { margin: 0; font-size: 34px; color: #ff85b3; text-shadow: 0 2px 15px rgba(255, 133, 179, 0.5); }
   p { font-size: 18px; line-height: 1.5; color: #f0f0f0; margin: 15px 0; }
@@ -85,22 +83,23 @@
     border: none; padding: 16px 28px; border-radius: 50px;
     font-size: 16px; font-weight: 700; cursor: pointer;
     position: absolute; transition: all 0.2s ease;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
   }
 
   #yes { background: #ff4d8d; color: #fff; left: 50%; transform: translateX(-50%); bottom: 0; z-index: 100; }
   #no { background: #ffffff; color: #222; top: 0; left: 50%; transform: translateX(-50%); }
 
+  /* Rose Overlay - Top Layer */
   .rose {
-    position: absolute;
-    font-size: 24px;
+    position: fixed;
+    font-size: 30px;
     pointer-events: none;
-    z-index: 25;
+    z-index: 1000; /* Highest priority */
     animation: fall linear forwards;
   }
 
   @keyframes fall {
-    to { transform: translateY(110vh) rotate(360deg); }
+    0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
   }
 </style>
 </head>
@@ -112,7 +111,7 @@
 <div class="screen">
   <div class="card" id="mainCard">
     <div class="msg-container">
-      <div id="msg">A special question for a special person... 🌹</div>
+      <div id="msg">Every heartbeat of mine belongs to you... 🌹</div>
     </div>
 
     <div id="content">
@@ -133,7 +132,6 @@
   const yesBtn = document.getElementById('yes');
   const msg = document.getElementById('msg');
   const content = document.getElementById('content');
-  const card = document.getElementById('mainCard');
   const canvas = document.getElementById('fireworksCanvas');
   const ctx = canvas.getContext('2d');
 
@@ -141,7 +139,6 @@
   const spotifyLink = "https://open.spotify.com/track/0tcKP2nsBy1aiabkXQlXt5?si=IN42uNTmT0OVa4BtKUYaHg"; 
   const convince = [
     "Wait... are you actually thinking about it? 🥺",
-    "Error 404: 'No' option not found in my heart. 🤖❤️",
     "I’ve already planned our 50th anniversary! 📉",
     "You’re the 'Once in a lifetime' kind of magic. ✨",
     "I'll carry all the grocery bags in one trip for you. 💪",
@@ -155,28 +152,27 @@
       noBtn.style.display = 'none';
       return;
     }
-    const maxX = card.clientWidth - noBtn.clientWidth - 40;
-    const maxY = 120; 
-    noBtn.style.left = Math.max(10, Math.random() * maxX) + 'px';
-    noBtn.style.top = Math.max(10, Math.random() * maxY) + 'px';
+    const maxX = 250; 
+    noBtn.style.left = Math.random() * maxX + 'px';
+    noBtn.style.top = Math.random() * 100 + 'px';
     noBtn.style.transform = 'none'; 
     msg.textContent = convince[attempt++];
   }
 
   noBtn.addEventListener('click', moveButton);
 
-  // --- Fireworks & Roses Logic ---
+  // --- Fireworks Particle System ---
   let particles = [];
   function createFirework() {
     const x = Math.random() * canvas.width;
     const y = Math.random() * (canvas.height / 2);
     const color = `hsl(${Math.random() * 360}, 100%, 60%)`;
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 60; i++) {
       particles.push({
         x, y,
-        dx: (Math.random() - 0.5) * 6,
-        dy: (Math.random() - 0.5) * 6,
-        size: Math.random() * 3,
+        dx: (Math.random() - 0.5) * 8,
+        dy: (Math.random() - 0.5) * 8,
+        size: Math.random() * 4,
         alpha: 1,
         color
       });
@@ -184,10 +180,10 @@
   }
 
   function animateFireworks() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+    ctx.fillStyle = 'rgba(5, 5, 5, 0.2)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     particles.forEach((p, i) => {
-      p.x += p.dx; p.y += p.dy; p.dy += 0.05; p.alpha -= 0.01;
+      p.x += p.dx; p.y += p.dy; p.dy += 0.05; p.alpha -= 0.008;
       ctx.globalAlpha = p.alpha;
       ctx.fillStyle = p.color;
       ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
@@ -202,32 +198,51 @@
     r.innerHTML = '🌹';
     r.style.left = Math.random() * 100 + 'vw';
     r.style.top = '-50px';
-    r.style.duration = (Math.random() * 3 + 2) + 's';
-    r.style.animationDuration = r.style.duration;
+    r.style.animationDuration = (Math.random() * 3 + 4) + 's';
     document.body.appendChild(r);
-    setTimeout(() => r.remove(), 5000);
+    setTimeout(() => r.remove(), 7000);
   }
 
   yesBtn.onclick = () => {
+    // Setup Canvas for overlay
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     
     content.innerHTML = `
-      <h1 style="font-size: 42px; margin-top:40px; color: #ff4d8d;">I LOVE YOU <br> RATHIDEVI ❤️</h1>
-      <p style="font-size: 22px;">You've made me the happiest person alive.</p>
+      <h1 style="font-size: 42px; margin-top:40px; color: #ff4d8d; position:relative; z-index:11;">I LOVE YOU <br> RATHIDEVI ❤️</h1>
+      <p style="font-size: 22px; position:relative; z-index:11;">Forever starts with us.</p>
     `;
-    msg.textContent = "🎆 Forever Starts Now 🎆";
+    msg.textContent = "🎆 LOOK AT THE SKY! 🎆";
     
+    // Start Visuals
     animateFireworks();
-    const fInterval = setInterval(createFirework, 400);
-    const rInterval = setInterval(spawnRose, 150);
+    const fInterval = setInterval(createFirework, 500);
+    const rInterval = setInterval(spawnRose, 200);
 
+    // After 10 Seconds, open Spotify in NEW TAB so animation continues here
     setTimeout(() => {
-      clearInterval(fInterval);
-      clearInterval(rInterval);
-      window.location.href = spotifyLink;
-    }, 5000);
+      window.open(spotifyLink, '_blank');
+      // Keep animations running for a total of 20 seconds before slowing down
+      setTimeout(() => {
+         clearInterval(fInterval);
+         clearInterval(rInterval);
+      }, 10000);
+    }, 10000);
   };
+
+  // Pre-generate stars
+  const starField = document.getElementById('starField');
+  for (let i = 0; i < 100; i++) {
+    const star = document.createElement('div');
+    star.style.position = 'absolute';
+    star.style.width = '2px';
+    star.style.height = '2px';
+    star.style.background = 'white';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.opacity = Math.random();
+    starField.appendChild(star);
+  }
 </script>
 </body>
 </html>
