@@ -1,256 +1,233 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>For RathiDevi ❤️</title>
-<style>
-  body {
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #050505;
-    font-family: 'Segoe UI', Roboto, sans-serif;
-    color: #ffffff;
-    overflow: hidden;
-  }
+<title>For RathiDevi ❤️</title><style>
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#050505;
+  font-family:'Segoe UI',Roboto,sans-serif;
+  color:#fff;
+  overflow:hidden;
+}
 
-  /* Overlay Animations */
-  canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 999; 
-  }
+/* background */
+.stars{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  background:radial-gradient(circle at center,#1b2735 0%,#090a0f 100%);
+}
 
-  .stars {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 0;
-    background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
-  }
+canvas{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:5;
+}
 
-  .screen {
-    z-index: 10;
-    width: min(92vw, 400px);
-    aspect-ratio: 9/16;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.screen{z-index:10;width:min(92vw,400px);aspect-ratio:9/16;display:flex;align-items:center;justify-content:center;}
 
-  .card {
-    width: 100%;
-    height: 100%;
-    border-radius: 30px;
-    padding: 30px 20px;
-    box-sizing: border-box;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    transition: all 1s ease; /* Smooth transition to transparency */
-  }
+.card{
+  width:100%;height:100%;
+  border-radius:30px;
+  padding:30px 20px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.15);
+  box-shadow:0 25px 50px rgba(0,0,0,0.8);
+  display:flex;flex-direction:column;justify-content:space-between;text-align:center;
+  transition:all .9s ease;
+}
 
-  /* Transparent state for the card after "Yes" */
-  .card.clear {
-    background: transparent !important;
-    backdrop-filter: none !important;
-    border-color: transparent !important;
-    box-shadow: none !important;
-  }
+/* remove card after yes */
+.card.fadeout{
+  opacity:0;
+  transform:scale(1.15);
+  filter:blur(25px);
+  pointer-events:none;
+}
 
-  .msg-container {
-    height: 90px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 77, 141, 0.15);
-    border-radius: 20px;
-    padding: 10px;
-    z-index: 11;
-  }
+.msg-container{
+  height:90px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,77,141,.15);
+  border-radius:20px;
+  padding:10px;
+}
 
-  #msg { font-size: 16px; font-weight: 600; color: #ffd1e3; }
+#msg{font-size:16px;font-weight:600;color:#ffd1e3;}
 
-  h1 { margin: 0; font-size: 34px; color: #ff85b3; text-shadow: 0 2px 15px rgba(255, 133, 179, 0.5); }
-  p { font-size: 18px; line-height: 1.5; color: #f0f0f0; margin: 15px 0; }
+h1{margin:0;font-size:34px;color:#ff85b3;text-shadow:0 2px 15px rgba(255,133,179,.5);}
+p{font-size:18px;line-height:1.5;color:#f0f0f0;margin:15px 0;}
 
-  .buttons { position: relative; height: 180px; width: 100%; }
-  button {
-    border: none; padding: 16px 28px; border-radius: 50px;
-    font-size: 16px; font-weight: 700; cursor: pointer;
-    position: absolute; transition: all 0.2s ease;
-  }
+.buttons{position:relative;height:180px;width:100%;}
+button{
+  border:none;padding:16px 28px;border-radius:50px;
+  font-size:16px;font-weight:700;cursor:pointer;
+  position:absolute;transition:.25s ease;
+}
 
-  #yes { background: #ff4d8d; color: #fff; left: 50%; transform: translateX(-50%); bottom: 0; z-index: 100; }
-  #no { background: #ffffff; color: #222; top: 0; left: 50%; transform: translateX(-50%); }
+#yes{background:#ff4d8d;color:#fff;left:50%;transform:translateX(-50%);bottom:0;}
+#no{background:#fff;color:#222;top:0;left:50%;transform:translateX(-50%);}
 
-  .rose {
-    position: fixed;
-    font-size: 30px;
-    pointer-events: none;
-    z-index: 1000;
-    animation: fall linear forwards;
-  }
+/* falling roses */
+.rose{
+  position:fixed;
+  font-size:30px;
+  pointer-events:none;
+  z-index:20;
+  animation:fall linear forwards;
+}
 
-  @keyframes fall {
-    0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-  }
-</style>
-</head>
-<body>
+@keyframes fall{
+  0%{transform:translateY(-10vh) rotate(0deg);opacity:1;}
+  100%{transform:translateY(110vh) rotate(360deg);opacity:0;}
+}
 
-<div class="stars" id="starField"></div>
-<canvas id="fireworksCanvas"></canvas>
+/* final text */
+.finalText{
+  position:fixed;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  z-index:15;
+  animation:reveal 2s ease forwards;
+}
 
-<div class="screen">
-  <div class="card" id="mainCard">
-    <div class="msg-container" id="msgBox">
-      <div id="msg">Thinking is fine, but I'm hoping for a 'Yes'! 😉</div>
-    </div>
-
-    <div id="content">
-      <h1>RathiDevi 🌸</h1>
-      <p>My universe was just a collection of stars until I met you. Now, you're the sun that gives it light.<br><br>
-      Will you make me the luckiest man and be mine forever?</p>
-      
-      <div class="buttons">
-        <button id="no">Hmm… thinking 🙈</button>
-        <button id="yes">Yes, a thousand times! 💍</button>
-      </div>
-    </div>
-  </div>
+@keyframes reveal{
+  from{opacity:0;transform:translateY(40px) scale(.9);}
+  to{opacity:1;transform:translateY(0) scale(1);}
+}
+</style></head><body><div class="stars" id="starField"></div>
+<canvas id="fireworksCanvas"></canvas><div class="screen">
+<div class="card" id="mainCard"><div class="msg-container">
+<div id="msg">Thinking is fine, but I'm hoping for a 'Yes'! 😉</div>
+</div><div id="content">
+<h1>RathiDevi 🌸</h1>
+<p>
+My universe was just a collection of stars until I met you.
+Now, you're the sun that gives it light.<br><br>
+Will you make me the luckiest man and be mine forever?
+</p><div class="buttons">
+<button id="no">Hmm… thinking 🙈</button>
+<button id="yes">Yes, a thousand times! 💍</button>
 </div>
+</div></div>
+</div><script>
+const noBtn=document.getElementById('no');
+const yesBtn=document.getElementById('yes');
+const msg=document.getElementById('msg');
+const card=document.getElementById('mainCard');
+const canvas=document.getElementById('fireworksCanvas');
+const ctx=canvas.getContext('2d');
 
-<script>
-  const noBtn = document.getElementById('no');
-  const yesBtn = document.getElementById('yes');
-  const msg = document.getElementById('msg');
-  const msgBox = document.getElementById('msgBox');
-  const content = document.getElementById('content');
-  const card = document.getElementById('mainCard');
-  const canvas = document.getElementById('fireworksCanvas');
-  const ctx = canvas.getContext('3d');
+let attempt=0;
+const spotifyLink="https://open.spotify.com/track/0tcKP2nsBy1aiabkXQlXt5?si=IN42uNTmT0OVa4BtKUYaHg";
 
-  let attempt = 0;
-  const spotifyLink = "https://open.spotify.com/track/0tcKP2nsBy1aiabkXQlXt5?si=IN42uNTmT0OVa4BtKUYaHg"; 
-  const convince = [
-    "Wait... are you actually thinking about it? 🥺",
-    "I’ve already planned our 50th anniversary! 📉",
-    "You’re the 'Once in a lifetime' kind of magic. ✨",
-    "I'll carry all the grocery bags in one trip for you. 💪",
-    "Look into my digital eyes... I love you! 🥺",
-    "One last chance... will you make my life complete? ❤️"
-  ];
+const convince=[
+"Wait... are you actually thinking about it? 🥺",
+"I’ve already planned our 50th anniversary! 📅",
+"You’re my once in a lifetime magic ✨",
+"I'll carry all the grocery bags 💪",
+"Look into my digital eyes... 🥺",
+"Last chance... will you complete me? ❤️"
+];
 
-  function moveButton() {
-    if (attempt >= convince.length - 1) {
-      msg.textContent = convince[convince.length - 1];
-      noBtn.style.display = 'none';
-      return;
-    }
-    noBtn.style.left = Math.random() * 200 + 'px';
-    noBtn.style.top = Math.random() * 100 + 'px';
-    noBtn.style.transform = 'none'; 
-    msg.textContent = convince[attempt++];
+function moveButton(){
+  if(attempt>=convince.length-1){
+    msg.textContent=convince[convince.length-1];
+    noBtn.style.display='none';
+    return;
   }
+  noBtn.style.left=Math.random()*260+'px';
+  noBtn.style.top=Math.random()*120+'px';
+  noBtn.style.transform='none';
+  msg.textContent=convince[attempt++];
+}
+noBtn.addEventListener('click',moveButton);
 
-  noBtn.addEventListener('click', moveButton);
-
-  // --- Fireworks System ---
-  let particles = [];
-  function createFirework() {
-    const x = Math.random() * canvas.width;
-    const y = Math.random() * (canvas.height / 2);
-    const color = `hsl(${Math.random() * 360}, 100%, 60%)`;
-    for (let i = 0; i < 60; i++) {
-      particles.push({
-        x, y,
-        dx: (Math.random() - 0.5) * 8,
-        dy: (Math.random() - 0.5) * 8,
-        size: Math.random() * 4,
-        alpha: 1,
-        color
-      });
-    }
+/* fireworks */
+let particles=[];
+function createFirework(){
+  const x=Math.random()*canvas.width;
+  const y=Math.random()*canvas.height/2;
+  const color=`hsl(${Math.random()*360},100%,60%)`;
+  for(let i=0;i<70;i++){
+    particles.push({x,y,dx:(Math.random()-.5)*8,dy:(Math.random()-.5)*8,size:Math.random()*3,alpha:1,color});
   }
+}
 
-  function animateFireworks() {
-    ctx.fillStyle = 'rgba(5, 5, 5, 0.2)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    particles.forEach((p, i) => {
-      p.x += p.dx; p.y += p.dy; p.dy += 0.05; p.alpha -= 0.008;
-      ctx.globalAlpha = p.alpha;
-      ctx.fillStyle = p.color;
-      ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
-      if (p.alpha <= 0) particles.splice(i, 1);
-    });
-    requestAnimationFrame(animateFireworks);
-  }
+function animateFireworks(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach((p,i)=>{
+    p.x+=p.dx;p.y+=p.dy;p.dy+=.05;p.alpha-=.008;
+    ctx.globalAlpha=p.alpha;
+    ctx.fillStyle=p.color;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    ctx.fill();
+    if(p.alpha<=0)particles.splice(i,1);
+  });
+  requestAnimationFrame(animateFireworks);
+}
 
-  function spawnRose() {
-    const r = document.createElement('div');
-    r.className = 'rose';
-    r.innerHTML = '🌹';
-    r.style.left = Math.random() * 100 + 'vw';
-    r.style.top = '-50px';
-    r.style.animationDuration = (Math.random() * 3 + 4) + 's';
-    document.body.appendChild(r);
-    setTimeout(() => r.remove(), 7000);
-  }
+/* roses */
+function spawnRose(){
+  const r=document.createElement('div');
+  r.className='rose';
+  r.innerHTML='🌹';
+  r.style.left=Math.random()*100+'vw';
+  r.style.animationDuration=(Math.random()*3+4)+'s';
+  document.body.appendChild(r);
+  setTimeout(()=>r.remove(),7000);
+}
 
-  yesBtn.onclick = () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    
-    // Make card transparent and hide message box
-    card.classList.add('clear');
-    msgBox.style.display = 'none';
-    
-    content.innerHTML = `
-      <h1 style="font-size: 46px; margin-top:80px; color: #ff4d8d; text-shadow: 0 0 20px #ff4d8d;">I LOVE YOU <br> RATHIDEVI ❤️</h1>
-      <p style="font-size: 24px; font-weight: bold; color: white;">Forever starts now.</p>
-    `;
-    
-    animateFireworks();
-    const fInterval = setInterval(createFirework, 500);
-    const rInterval = setInterval(spawnRose, 200);
+/* YES click */
+yesBtn.onclick=()=>{
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
 
-    // 10 second delay for Spotify
-    setTimeout(() => {
-      window.open(spotifyLink, '_blank');
-      setTimeout(() => {
-         clearInterval(fInterval);
-         clearInterval(rInterval);
-      }, 10000);
-    }, 10000);
-  };
+  card.classList.add('fadeout');
+  setTimeout(()=>card.remove(),900);
 
-  const starField = document.getElementById('starField');
-  for (let i = 0; i < 100; i++) {
-    const star = document.createElement('div');
-    star.style.position = 'absolute';
-    star.style.width = '2px'; star.style.height = '2px';
-    star.style.background = 'white';
-    star.style.top = Math.random() * 100 + '%';
-    star.style.left = Math.random() * 100 + '%';
-    star.style.opacity = Math.random();
-    starField.appendChild(star);
-  }
-</script>
-</body>
+  const final=document.createElement('div');
+  final.className='finalText';
+  final.innerHTML=`<h1 style="font-size:56px;color:#ff4d8d;text-shadow:0 0 30px #ff4d8d;">
+  I LOVE YOU <br> RATHIDEVI ❤️</h1>
+  <p style="font-size:26px;font-weight:bold;">Forever starts now.</p>`;
+  document.body.appendChild(final);
+
+  animateFireworks();
+  const f=setInterval(createFirework,500);
+  const r=setInterval(spawnRose,220);
+
+  const win=window.open("","_blank");
+  setTimeout(()=>{win.location.href=spotifyLink;},10000);
+  setTimeout(()=>{clearInterval(f);clearInterval(r);},20000);
+};
+
+/* stars */
+const starField=document.getElementById('starField');
+for(let i=0;i<100;i++){
+  const s=document.createElement('div');
+  s.style.position='absolute';
+  s.style.width='2px';
+  s.style.height='2px';
+  s.style.background='white';
+  s.style.top=Math.random()*100+'%';
+  s.style.left=Math.random()*100+'%';
+  s.style.opacity=Math.random();
+  starField.appendChild(s);
+}
+</script></body>
 </html>
-
