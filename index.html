@@ -2,186 +2,267 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>For RathiDevi ❤️ From Palanikumar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>For RathiDevi • Palanikumar</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#050505;font-family:'Segoe UI',Roboto,sans-serif;color:#fff;overflow:hidden;touch-action:none;}
-.stars{position:fixed;inset:0;z-index:0;background:radial-gradient(circle at center,#1b2735 0%,#090a0f 100%);}
-canvas{position:fixed;inset:0;pointer-events:none;z-index:5;}
-.screen{z-index:10;width:min(92vw,400px);aspect-ratio:9/16;display:flex;align-items:center;justify-content:center;}
-.card{width:100%;height:100%;border-radius:30px;padding:30px 20px;background:rgba(255,255,255,0.08);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.15);box-shadow:0 25px 50px rgba(0,0,0,0.8);display:flex;flex-direction:column;justify-content:space-between;text-align:center;transition:all .9s ease;}
-.card.fadeout{opacity:0;transform:scale(1.15);filter:blur(25px);pointer-events:none;}
-.msg-container{height:90px;display:flex;align-items:center;justify-content:center;background:rgba(255,77,141,.15);border-radius:20px;padding:10px;}
-#msg{font-size:16px;font-weight:600;color:#ffd1e3;}
-h1{margin:0;font-size:34px;color:#ff85b3;text-shadow:0 2px 15px rgba(255,133,179,.5);}
-p{font-size:18px;line-height:1.5;color:#f0f0f0;margin:15px 0;}
-.buttons{position:relative;height:180px;width:100%;}
-button{border:none;padding:16px 28px;border-radius:50px;font-size:16px;font-weight:700;cursor:pointer;position:absolute;transition:.25s ease;}
-#yes{background:#ff4d8d;color:#fff;left:50%;transform:translateX(-50%);bottom:0;}
-#no{background:#fff;color:#222;top:0;left:50%;transform:translateX(-50%);}
-.rose{position:fixed;font-size:30px;pointer-events:none;z-index:20;animation:fall linear forwards;}
-@keyframes fall{0%{transform:translateY(-10vh) rotate(0deg);opacity:1;}100%{transform:translateY(110vh) rotate(360deg);opacity:0;}}
-
-/* Final UI */
-.finalContainer{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:15;opacity:0;}
-.timer{font-size:15px;color:#ffb3d1;margin-top:20px;background:rgba(255,255,255,0.1);padding:12px 20px;border-radius:50px;backdrop-filter:blur(5px);border:1px solid rgba(255,179,209,0.3);}
-.timeline{font-size:12px;margin-top:20px;color:rgba(255,255,255,0.5);display:flex;gap:15px;text-transform:uppercase;letter-spacing:1px;}
-.timeline b{color:#ff4d8d;}
-
-#story-overlay {
-  position: fixed; inset: 0; display: none; align-items: center; justify-content: center;
-  z-index: 100; font-size: 26px; font-weight: bold; color: #ff85b3; text-align: center;
-  text-shadow: 0 0 20px rgba(255, 133, 179, 0.8); background: rgba(0,0,0,0.5); padding:20px;
+:root {
+    --accent: #ffb3d1; /* Soft Rose */
+    --gold: #d4af37;
+    --bg: #050505;
 }
+
+* { -webkit-tap-highlight-color: transparent; box-sizing: border-box; }
+
+body {
+    margin: 0; padding: 0;
+    min-height: 100svh; /* Stable mobile height */
+    background: var(--bg);
+    font-family: 'Inter', sans-serif;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Star Background */
+.stars {
+    position: fixed; inset: 0;
+    background: radial-gradient(circle at 50% 100%, #1a1a1a 0%, #050505 100%);
+    z-index: 0;
+}
+
+canvas { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
+
+/* Mobile Bento Grid */
+.bento-grid {
+    position: relative;
+    z-index: 10;
+    width: 90vw;
+    max-width: 400px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto auto;
+    gap: 12px;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.box {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 20px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.header-box { grid-column: span 2; }
+.header-box h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 8vw, 40px);
+    margin: 0; font-weight: 300; color: var(--accent);
+}
+
+.date-box { grid-column: span 1; display: flex; flex-direction: column; justify-content: center; }
+.date-box span { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; }
+.date-box b { font-size: 16px; color: var(--gold); margin-top: 4px; }
+
+.story-box { grid-column: span 2; }
+.story-box p { font-size: 14px; line-height: 1.6; margin: 0; opacity: 0.8; font-weight: 300; }
+
+.action-box { 
+    grid-column: span 2; 
+    height: 160px; 
+    position: relative; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    overflow: hidden;
+}
+
+.btn {
+    width: 100%;
+    padding: 16px;
+    border-radius: 16px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#yes { background: white; color: black; position: relative; z-index: 100; }
+#no { 
+    background: transparent; 
+    color: white; 
+    border: 1px solid rgba(255,255,255,0.2); 
+    position: absolute; 
+    width: 80%; 
+    left: 10%; 
+    bottom: 20px; 
+    z-index: 50;
+}
+
+/* Final View */
+#final-view {
+    position: fixed; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden;
+    z-index: 20; text-align: center;
+    padding: 20px;
+}
+#final-view h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 10vw, 60px); margin: 0; color: var(--accent); }
+
+.pill {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    border-radius: 100px;
+    font-size: 12px;
+    margin-top: 25px;
+    letter-spacing: 1px;
+}
+
+.fade-out { opacity: 0; transform: scale(0.9); filter: blur(10px); }
 </style>
 </head>
-<body onclick="manualFirework(event)">
-<div class="stars" id="starField"></div>
-<canvas id="fireworksCanvas"></canvas>
-<div id="story-overlay"></div>
+<body>
 
-<div class="screen">
-  <div class="card" id="mainCard">
-    <div class="msg-container"><div id="msg">Palanikumar is waiting for your 'Yes'... 💍</div></div>
-    <div id="content">
-      <h1>RathiDevi 🌸</h1>
-      <p>My universe was just a collection of stars until I met you on <b>April 19th</b>.<br><br>
-      Will you make <b>Palanikumar</b> the luckiest man and be mine forever?</p>
-      <div class="buttons">
-        <button id="no">Thinking... 🙈</button>
-        <button id="yes">Yes, a thousand times! 💍</button>
-      </div>
+<div class="stars"></div>
+<canvas id="fireworks"></canvas>
+
+<div class="bento-grid" id="grid">
+    <div class="box header-box">
+        <span style="font-size: 10px; letter-spacing: 3px; opacity: 0.4;">TO MY FOREVER</span>
+        <h1>RathiDevi</h1>
     </div>
-  </div>
+
+    <div class="box date-box">
+        <span>MET</span>
+        <b>APR 19</b>
+    </div>
+    <div class="box date-box">
+        <span>MARRY</span>
+        <b>MAY 18</b>
+    </div>
+
+    <div class="box story-box">
+        <p>Palanikumar believes every star aligned the day you met. Now, he’s ready for the rest of our lives.</p>
+    </div>
+
+    <div class="box action-box" id="area">
+        <button class="btn" id="yes">Accept Forever</button>
+        <button class="btn" id="no">Thinking...</button>
+    </div>
+</div>
+
+<div id="final-view">
+    <span style="letter-spacing: 5px; opacity: 0.5; font-size: 10px; margin-bottom: 15px;">PALANIKUMAR & RATHIDEVI</span>
+    <h2>It was always you.</h2>
+    <div class="pill" id="timer">00D 00H 00M 00S</div>
 </div>
 
 <script>
-const noBtn=document.getElementById('no');
-const yesBtn=document.getElementById('yes');
-const msg=document.getElementById('msg');
-const card=document.getElementById('mainCard');
-const canvas=document.getElementById('fireworksCanvas');
-const overlay=document.getElementById('story-overlay');
-const ctx=canvas.getContext('2d');
+const noBtn = document.getElementById('no');
+const yesBtn = document.getElementById('yes');
+const grid = document.getElementById('grid');
+const finalView = document.getElementById('final-view');
+const canvas = document.getElementById('fireworks');
+const ctx = canvas.getContext('2d');
 
-const spotifyLink="https://open.spotify.com/track/0tcKP2nsBy1aiabkXQlXt5?si=IN42uNTmT0OVa4BtKUYaHg";
 const startDate = new Date('2025-04-19T00:00:00');
 
-function manualFirework(e) {
-  if(card.classList.contains('fadeout')) {
-    createFirework(e.clientX, e.clientY);
-  }
+// Mobile Escape Logic
+noBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    moveNo();
+});
+noBtn.addEventListener('mouseover', moveNo);
+
+function moveNo() {
+    const x = Math.random() * 100 - 50;
+    const y = Math.random() * 80 - 40;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    noBtn.style.opacity = "0.6";
 }
-
-let attempt=0;
-const convince=[
-"Hey Rathi, Palanikumar is waiting... 😌",
-"I've already planned our life together! 📅",
-"You're my once in a lifetime magic ✨",
-"April 19 Met, May 18 Marriage... it's destiny! ❤️",
-"Look into my eyes... I love you! 🥺",
-"Please say Yes to Palanikumar! ❤️"
-];
-
-noBtn.onclick = () => {
-  if(attempt>=convince.length-1){msg.textContent=convince[convince.length-1];noBtn.style.display='none';return;}
-  noBtn.style.left=Math.random()*260+'px';
-  noBtn.style.top=Math.random()*120+'px';
-  noBtn.style.transform='none';
-  msg.textContent=convince[attempt++];
-};
 
 function updateTimer() {
-    const now = new Date();
-    const diff = now - startDate;
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hrs = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const mins = Math.floor((diff / 1000 / 60) % 60);
-    const secs = Math.floor((diff / 1000) % 60);
-    const t = document.getElementById('timeCounter');
-    if(t) t.innerText = `${days} Days • ${hrs}h • ${mins}m • ${secs}s Since We Met`;
+    const diff = new Date() - startDate;
+    const d = Math.floor(diff / 864e5);
+    const h = Math.floor((diff % 864e5) / 36e5);
+    const m = Math.floor((diff % 36e5) / 6e4);
+    const s = Math.floor((diff % 6e4) / 1000);
+    document.getElementById('timer').innerText = `${d}D • ${h}H • ${m}M • ${s}S SINCE WE MET`;
 }
 
-let particles=[];
-function createFirework(x, y){
-  x = x || Math.random()*canvas.width;
-  y = y || Math.random()*canvas.height/2;
-  const color=`hsl(${Math.random()*360},100%,60%)`;
-  for(let i=0;i<70;i++){particles.push({x,y,dx:(Math.random()-.5)*10,dy:(Math.random()-.5)*10,size:Math.random()*3.5,alpha:1,color});}
-}
-
-function animateFireworks(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  particles.forEach((p,i)=>{
-    p.x+=p.dx;p.y+=p.dy;p.dy+=.05;p.alpha-=.008;
-    ctx.globalAlpha=p.alpha; ctx.fillStyle=p.color;
-    ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();
-    if(p.alpha<=0)particles.splice(i,1);
-  });
-  requestAnimationFrame(animateFireworks);
-}
-
-function spawnRose(){
-  const r=document.createElement('div');r.className='rose';r.innerHTML='🌹';
-  r.style.left=Math.random()*100+'vw';r.style.animationDuration=(Math.random()*3+4)+'s';
-  document.body.appendChild(r);setTimeout(()=>r.remove(),7000);
-}
-
-const storySteps = [
-  "Our journey started on April 19...", 
-  "Palanikumar knew from the start...", 
-  "That you were the one, Rathi.", 
-  "The engagement was just the beginning...", 
-  "And May 18th will be our forever.", 
-  "I Love You, RathiDevi!"
-];
-
-yesBtn.onclick=()=>{
-  canvas.width=window.innerWidth; canvas.height=window.innerHeight;
-  card.classList.add('fadeout');
-  
-  overlay.style.display = 'flex';
-  let step = 0;
-  const storyInterval = setInterval(() => {
-    overlay.innerText = storySteps[step];
-    step++;
-    if(step > storySteps.length) {
-      clearInterval(storyInterval);
-      overlay.style.display = 'none';
-      showFinalScreen();
-    }
-  }, 1400);
-
-  animateFireworks();
-  setInterval(createFirework, 600);
-  setInterval(spawnRose, 250);
-  
-  setTimeout(() => { window.open(spotifyLink, '_blank'); }, 14000); 
+yesBtn.onclick = () => {
+    grid.classList.add('fade-out');
+    setTimeout(() => {
+        grid.style.display = 'none';
+        finalView.style.visibility = 'visible';
+        finalView.style.opacity = '1';
+        initCelebration();
+    }, 800);
+    
+    setTimeout(() => { 
+        window.location.href = "https://open.spotify.com/track/0tcKP2nsBy1aiabkXQlXt5?si=IN42uNTmT0OVa4BtKUYaHg"; 
+    }, 12000);
 };
 
-function showFinalScreen() {
-    const final=document.createElement('div');
-    final.className='finalContainer';
-    final.style.opacity = '1';
-    final.innerHTML=`
-      <h1 style="font-size:42px;color:#ff4d8d;text-shadow:0 0 30px #ff4d8d;">I LOVE YOU <br> RATHIDEVI ❤️</h1>
-      <p style="font-size:20px; letter-spacing:1px;">Forever Yours, Palanikumar</p>
-      <div class="timer" id="timeCounter"></div>
-      <div class="timeline">
-        <span>Apr 19 <b>MET</b></span> | <span><b>ENGAGED</b></span> | <span>May 18 <b>MARRIAGE</b></span>
-      </div>
-      <p style="font-size:11px; opacity:0.6; margin-top:30px;">(Palanikumar: Tap screen for more magic)</p>
-    `;
-    document.body.appendChild(final);
+let particles = [];
+function initCelebration() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
     setInterval(updateTimer, 1000);
+    animate();
 }
 
-const starField=document.getElementById('starField');
-for(let i=0;i<120;i++){
-  const s=document.createElement('div');s.style.position='absolute';s.style.width='2px';s.style.height='2px';
-  s.style.background='white';s.style.top=Math.random()*100+'%';s.style.left=Math.random()*100+'%';
-  s.style.opacity=Math.random();starField.appendChild(s);
+function animate() {
+    ctx.fillStyle = 'rgba(5, 5, 5, 0.15)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    if (Math.random() < 0.15) {
+        const x = Math.random() * canvas.width;
+        const color = Math.random() > 0.5 ? '#ffb3d1' : '#d4af37';
+        for(let i=0; i<40; i++) {
+            particles.push({
+                x: x,
+                y: canvas.height,
+                vx: Math.random() * 4 - 2,
+                vy: -Math.random() * 12 - 8,
+                life: 1,
+                c: color
+            });
+        }
+    }
+
+    particles.forEach((p, i) => {
+        p.x += p.vx; p.y += p.vy; p.vy += 0.2; p.life -= 0.015;
+        ctx.globalAlpha = p.life;
+        ctx.fillStyle = p.c;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 1.5, 0, Math.PI*2);
+        ctx.fill();
+        if (p.life <= 0) particles.splice(i, 1);
+    });
+    requestAnimationFrame(animate);
+}
+
+// Background Stars
+const starsContainer = document.querySelector('.stars');
+for(let i=0; i<70; i++) {
+    const star = document.createElement('div');
+    star.style.position = 'absolute';
+    star.style.width = star.style.height = Math.random() * 2 + 'px';
+    star.style.background = 'white';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.opacity = Math.random() * 0.5;
+    starsContainer.appendChild(star);
 }
 </script>
 </body>
 </html>
+
