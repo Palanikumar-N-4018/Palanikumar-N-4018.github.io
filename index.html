@@ -7,26 +7,34 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 :root { 
-    --gold: #c5a059; 
-    --gold-dim: rgba(197, 160, 89, 0.2);
-    --bg: #050505; 
-    --surface: #101012; 
+    --pink-rich: #ff0a54; /* Vibrant Rich Pink */
+    --pink-glow: rgba(255, 10, 84, 0.4);
+    --bg: #120205; /* Deep Dark Plum/Black */
+    --surface: rgba(255, 255, 255, 0.05); 
+    --text-main: #ffe5ec;
 }
 
-* { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; }
+* { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; user-select: none; }
 
 body { 
     margin: 0; padding: 0; min-height: 100svh; background: var(--bg); 
-    font-family: 'Inter', sans-serif; color: #e0e0e0; 
+    font-family: 'Inter', sans-serif; color: var(--text-main); 
     display: flex; align-items: center; justify-content: center; overflow: hidden; 
 }
 
-/* Background Vignette */
+/* Background Atmosphere */
 .vignette {
     position: fixed; inset: 0;
     background: radial-gradient(circle at center, transparent 0%, #000 90%);
     z-index: 1; pointer-events: none;
 }
+.pink-bloom {
+    position: fixed; top: -20%; left: -20%; width: 50vw; height: 50vw;
+    background: var(--pink-rich); filter: blur(150px); opacity: 0.15;
+    animation: pulse 10s infinite alternate;
+}
+
+@keyframes pulse { 0% { opacity: 0.1; } 100% { opacity: 0.25; } }
 
 canvas { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
 
@@ -39,140 +47,130 @@ canvas { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
 
 .box { 
     background: var(--surface); 
-    border: 1px solid var(--gold-dim); 
-    border-radius: 16px; padding: 20px; 
-    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 10, 84, 0.2); 
+    border-radius: 20px; padding: 22px; 
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-.header-box { grid-column: span 2; border-left: 3px solid var(--gold); }
+.header-box { grid-column: span 2; border-left: 3px solid var(--pink-rich); }
 .header-box h1 { 
-    font-family: 'Cinzel', serif; font-size: 26px; margin: 0; 
-    letter-spacing: 2px; color: var(--gold); text-transform: uppercase;
+    font-family: 'Cinzel', serif; font-size: 32px; margin: 0; 
+    letter-spacing: 1px; color: var(--pink-rich); text-shadow: 0 0 15px var(--pink-glow);
 }
 
 #convince-msg { 
-    font-size: 13px; color: #aaa; margin-top: 8px; 
-    min-height: 36px; transition: 0.2s; font-style: italic;
+    font-size: 14px; color: #ffbfd3; margin-top: 10px; 
+    min-height: 40px; transition: 0.2s; font-style: italic; font-weight: 300;
     display: flex; align-items: center;
 }
 
-.date-box { grid-column: span 1; display: flex; flex-direction: column; justify-content: center; }
-.date-box span { font-size: 9px; letter-spacing: 2px; color: var(--gold); opacity: 0.7; }
-.date-box b { font-family: 'Cinzel', serif; font-size: 16px; color: white; margin-top: 5px; }
+.date-box { grid-column: span 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+.date-box span { font-size: 10px; letter-spacing: 2px; color: var(--pink-rich); opacity: 0.8; font-weight: 600; }
+.date-box b { font-family: 'Cinzel', serif; font-size: 18px; color: white; margin-top: 5px; }
 
 .action-box { 
-    grid-column: span 2; height: 150px; position: relative; 
-    background: transparent; border: none; padding: 0;
+    grid-column: span 2; height: 160px; position: relative; 
+    background: transparent; border: none; padding: 0; box-shadow: none;
 }
 
 .btn { 
     width: 100%; padding: 18px; border-radius: 50px; border: none; 
-    font-family: 'Cinzel', serif; font-size: 14px; font-weight: 700; 
-    cursor: pointer; transition: all 0.3s; letter-spacing: 1px;
+    font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700; 
+    cursor: pointer; transition: all 0.3s; letter-spacing: 0.5px;
 }
 
 #yes { 
-    background: var(--gold); color: #000; z-index: 20; 
-    box-shadow: 0 5px 20px rgba(197, 160, 89, 0.3);
+    background: var(--pink-rich); color: white; z-index: 20; 
+    box-shadow: 0 5px 25px var(--pink-glow);
     position: relative;
+    text-transform: uppercase;
 }
 
 #no { 
-    background: rgba(255,255,255,0.05); color: #fff; 
-    border: 1px solid rgba(255,255,255,0.2); 
+    background: rgba(255, 255, 255, 0.08); color: #ffadd2; 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
     position: absolute; width: 80%; bottom: 10px; left: 10%;
     z-index: 30; transition: 0.2s ease-out;
 }
 
-/* Final View & Loader */
+/* Final View */
 #final-view { 
     position: fixed; inset: 0; display: none; flex-direction: column; 
     align-items: center; justify-content: center; opacity: 0; 
     z-index: 100; text-align: center; padding: 20px;
-    background: rgba(5,5,5,0.8);
+    background: rgba(10, 0, 5, 0.95);
 }
 
+/* Luxury Heart Loader (Pink) */
 .heart-loader {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-  transform: rotate(45deg);
-  transform-origin: 40px 40px;
+  display: inline-block; position: relative; width: 64px; height: 64px;
+  transform: rotate(45deg); transform-origin: 32px 32px;
 }
 .heart-loader div {
-  top: 32px;
-  left: 32px;
-  position: absolute;
-  width: 32px;
-  height: 32px;
-  background: var(--gold);
+  top: 23px; left: 23px; position: absolute; width: 26px; height: 26px;
+  background: var(--pink-rich);
   animation: heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+  box-shadow: 0 0 10px var(--pink-glow);
 }
-.heart-loader div:after,
-.heart-loader div:before {
-  content: " ";
-  position: absolute;
-  display: block;
-  width: 32px;
-  height: 32px;
-  background: var(--gold);
+.heart-loader div:after, .heart-loader div:before {
+  content: " "; position: absolute; display: block; width: 26px; height: 26px;
+  background: var(--pink-rich);
 }
-.heart-loader div:before {
-  left: -24px;
-  border-radius: 50% 0 0 50%;
-}
-.heart-loader div:after {
-  top: -24px;
-  border-radius: 50% 50% 0 0;
-}
+.heart-loader div:before { left: -17px; border-radius: 50% 0 0 50%; }
+.heart-loader div:after { top: -17px; border-radius: 50% 50% 0 0; }
 @keyframes heart {
-  0% { transform: scale(0.95); }
-  5% { transform: scale(1.1); }
-  39% { transform: scale(0.85); }
-  45% { transform: scale(1); }
-  60% { transform: scale(0.95); }
-  100% { transform: scale(0.9); }
+  0% { transform: scale(0.95); } 5% { transform: scale(1.1); }
+  39% { transform: scale(0.85); } 45% { transform: scale(1); }
+  60% { transform: scale(0.95); } 100% { transform: scale(0.9); }
 }
 
-.progress-container { width: 200px; height: 2px; background: rgba(255,255,255,0.1); margin-top: 30px; border-radius: 2px; }
-.progress-bar { width: 0%; height: 100%; background: var(--gold); transition: width 0.1s linear; }
+.progress-container { width: 220px; height: 3px; background: rgba(255,255,255,0.1); margin-top: 40px; border-radius: 10px; overflow: hidden; }
+.progress-bar { width: 0%; height: 100%; background: var(--pink-rich); transition: width 0.1s linear; }
 
 .fade-out { opacity: 0; transform: scale(0.95); pointer-events: none; }
 .show-final { display: flex !important; animation: fadeIn 1s forwards; }
 @keyframes fadeIn { to { opacity: 1; } }
-
 </style>
 </head>
 <body>
 
 <div class="vignette"></div>
+<div class="pink-bloom"></div>
 <canvas id="fireworks"></canvas>
 
 <div class="bento-grid" id="grid">
     <div class="box header-box">
-        <span style="font-size: 10px; letter-spacing: 3px; color: #666;">PROPOSAL DAY</span>
+        <span style="font-size: 10px; letter-spacing: 3px; color: #ff85a2;">PROPOSAL DAY</span>
         <h1>RathiDevi</h1>
-        <div id="convince-msg">Palanikumar is waiting for your answer...</div>
+        <div id="convince-msg">Palanikumar has a question for you... ❤️</div>
     </div>
-    <div class="box date-box"><span>MET</span><b>APR 19</b></div>
-    <div class="box date-box"><span>MARRIAGE</span><b>MAY 18</b></div>
+    
+    <div class="box date-box">
+        <span>MET ON</span>
+        <b>APR 19</b>
+    </div>
+    <div class="box date-box">
+        <span>WEDDING</span>
+        <b>MAY 18</b>
+    </div>
+
     <div class="box action-box">
-        <button class="btn" id="yes">I ACCEPT</button>
+        <button class="btn" id="yes">YES, FOREVER! 💍</button>
         <button class="btn" id="no">Thinking... 🤔</button>
     </div>
 </div>
 
 <div id="final-view">
-    <h2 style="font-family: 'Cinzel', serif; font-size: 32px; color: var(--gold); margin-bottom: 10px;">SHE SAID YES!</h2>
-    <p style="font-size: 12px; letter-spacing: 2px; color: #888;">OFFICIALLY SEALED</p>
+    <h2 style="font-family: 'Cinzel', serif; font-size: 36px; color: var(--pink-rich); margin-bottom: 5px; text-shadow: 0 0 20px var(--pink-glow);">SHE SAID YES!</h2>
+    <p style="font-size: 14px; letter-spacing: 2px; color: #ffbdd5; margin-bottom: 30px;">THE HAPPIEST DAY BEGINS</p>
     
     <div class="heart-loader"><div></div></div>
     
     <div class="progress-container">
         <div class="progress-bar" id="p-bar"></div>
     </div>
-    <p style="font-size: 10px; margin-top: 15px; color: #666; letter-spacing: 1px;">PLAYING OUR SONG...</p>
+    <p style="font-size: 11px; margin-top: 15px; color: #aaa; letter-spacing: 1px;">LOADING OUR LOVE SONG...</p>
 </div>
 
 <script>
@@ -184,65 +182,62 @@ const finalView = document.getElementById('final-view');
 const pBar = document.getElementById('p-bar');
 const spotifyLink = "https://open.spotify.com/track/0tcKP2nsBy1aiabkXQlXt5?si=IN42uNTmT0OVa4BtKUYaHg";
 
-// The "Trap" Sequence
+// Your Custom "Convince" Sequence
 const messages = [
-    "Thinking? About Palanikumar? Really? 🤨",
-    "Don't press this, press the Gold one! 🥇",
-    "I promised your Mom you'd say Yes... 🥺",
+    "I'll buy you the biggest Teddy Bear! 🧸",
+    "We'll visit the coolest places together! 🌍",
+    "I'll make you go 'Ahah' & 'Haha' everyday! 😄",
+    "Wait, are you still thinking? 🤨",
     "May 18th is fixed! No take-backs! 💍",
-    "I'll buy you chocolates forever. 🍫",
-    "Okay, the 'No' button is broken now. 🔧",
-    "Fine, I'll turn into a Yes button. ❤️"
+    "Okay, the 'No' button is officially broken. 🔧",
+    "Fine, I surrender! Just say Yes! ❤️"
 ];
 
 let clickCount = 0;
 
 function interactionHandler(e) {
-    // If it's the final step, treat it as a YES click
+    if(e) e.preventDefault();
+
+    // Check if it's the Surrender State (Last Step)
     if (clickCount >= messages.length) {
         handleYes();
         return;
     }
-
-    // Normal behavior: Move button and change text
-    if(e) e.preventDefault();
     
-    // 1. Update Message
-    msgBox.style.opacity = '0';
-    setTimeout(() => {
-        msgBox.innerText = messages[clickCount];
-        msgBox.style.opacity = '1';
-        clickCount++;
-        
-        // Check if this was the last step
-        if (clickCount === messages.length) {
-            // Transform the No button into a secondary Yes button
-            noBtn.innerText = "OKAY, YES! ❤️";
-            noBtn.style.background = "#fff";
-            noBtn.style.color = "#000";
-            noBtn.style.transform = "translate(0, -110%) scale(1.1)"; // Move it right above the other button
-            noBtn.style.position = "absolute"; 
-            noBtn.style.left = "10%";
-            noBtn.style.bottom = "10px";
-        } else {
-            // Random Move
-            const x = Math.random() * 80 - 40;
-            const y = Math.random() * 60 - 30;
-            noBtn.style.transform = `translate(${x}px, ${y}px)`;
-        }
-    }, 100);
+    // 1. Update Message Instantly
+    msgBox.innerText = messages[clickCount];
+    clickCount++;
+    
+    // 2. Logic for Button Movement vs Surrender
+    if (clickCount === messages.length) {
+        // SURRENDER STATE: Button stops and becomes clickable
+        noBtn.innerText = "OKAY, YES! ❤️";
+        noBtn.style.background = "#fff";
+        noBtn.style.color = "#ff0a54";
+        noBtn.style.fontWeight = "bold";
+        noBtn.style.transform = "translate(0, -110%) scale(1.1)"; // Move right above Yes button
+        noBtn.style.position = "absolute"; 
+        noBtn.style.left = "10%";
+        noBtn.style.bottom = "10px";
+        noBtn.style.border = "none";
+        noBtn.style.boxShadow = "0 10px 20px rgba(0,0,0,0.3)";
+    } else {
+        // MOVE STATE: Button jumps around
+        const x = Math.random() * 80 - 40;
+        const y = Math.random() * 60 - 30;
+        noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
 }
 
-// Add listeners for both touch and mouse
+// Touch & Click Listeners
+noBtn.addEventListener('touchstart', interactionHandler);
 noBtn.addEventListener('click', interactionHandler);
 noBtn.addEventListener('mouseover', (e) => {
-    // Only move on hover if we haven't reached the final state
     if (clickCount < messages.length) interactionHandler(e);
 });
 
 function handleYes() {
     grid.classList.add('fade-out');
-    
     setTimeout(() => {
         grid.style.display = 'none';
         finalView.classList.add('show-final');
@@ -262,10 +257,10 @@ function startProgress() {
             clearInterval(interval);
             window.location.href = spotifyLink;
         }
-    }, 100); // 10 seconds total
+    }, 120); // 12 seconds
 }
 
-// Gold Dust Animation
+// Rich Pink Particle Animation
 const canvas = document.getElementById('fireworks');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -277,22 +272,24 @@ function startCelebration() {
 }
 
 function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear for transparency
+    // Slight trail effect
+    ctx.fillStyle = 'rgba(18, 2, 5, 0.2)'; 
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    if (Math.random() < 0.2) {
+    if (Math.random() < 0.25) {
         particles.push({
             x: Math.random() * canvas.width,
             y: canvas.height,
-            vx: Math.random() * 2 - 1,
-            vy: -Math.random() * 5 - 2,
+            vx: Math.random() * 3 - 1.5,
+            vy: -Math.random() * 8 - 4,
             life: 1,
-            size: Math.random() * 2,
-            color: '#c5a059'
+            size: Math.random() * 3,
+            color: Math.random() > 0.5 ? '#ff0a54' : '#ffccd5' // Hot Pink & Pale Pink
         });
     }
 
     particles.forEach((p, i) => {
-        p.x += p.vx; p.y += p.vy; p.life -= 0.01;
+        p.x += p.vx; p.y += p.vy; p.life -= 0.012; p.vy += 0.05; // Gravity
         ctx.globalAlpha = p.life;
         ctx.fillStyle = p.color;
         ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
@@ -303,4 +300,3 @@ function animate() {
 </script>
 </body>
 </html>
-
