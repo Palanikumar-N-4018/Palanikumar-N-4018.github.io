@@ -1,51 +1,49 @@
 <!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>For RathiDevi ❤️</title>
 <style>
-  :root{--pink:#ff4d6d;--soft:#fff0f5}
-  body{margin:0;font-family:'Segoe UI',sans-serif;background:radial-gradient(circle at top,#ffd1dc,#ff9a9e,#ff758f);min-height:100vh;display:flex;align-items:center;justify-content:center;color:white;overflow:hidden}
-  .card{width:92vw;max-width:420px;background:rgba(255,255,255,.12);backdrop-filter:blur(18px);padding:28px 20px;border-radius:28px;text-align:center;box-shadow:0 25px 80px rgba(0,0,0,.35)}
-  h1{margin:0 0 10px;font-size:28px;letter-spacing:.5px}
-  p{font-size:17px;line-height:1.6;margin:0 0 22px}
-  .buttons{position:relative;height:150px;margin-bottom:10px}
-  button{border:none;padding:16px 26px;font-size:16px;border-radius:999px;cursor:pointer;transition:.25s;position:absolute}
-  #yes{background:var(--pink);color:white;left:50%;transform:translateX(-50%);bottom:10px;box-shadow:0 10px 25px rgba(255,77,109,.6)}
-  #yes:active{transform:translateX(-50%) scale(.96)}
-  #no{background:white;color:#333;top:10px;left:10px}
-  .msg{min-height:40px;font-size:14px;color:var(--soft);padding:8px 12px}
-  .hearts{position:fixed;inset:0;pointer-events:none}
-  .heart{position:absolute;color:#ff4d6d;animation:float 4s linear forwards}
-  @keyframes float{from{transform:translateY(0) scale(1)}to{transform:translateY(-110vh) scale(1.8);opacity:0}}
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#b7e3ff,#d6f0ff,#ffe4f1);font-family:'Segoe UI',sans-serif;color:#fff}
+  .screen{width:min(92vw,420px);aspect-ratio:9/16;display:flex;align-items:center;justify-content:center}
+  .card{width:100%;height:100%;border-radius:30px;padding:26px 18px;box-sizing:border-box;background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,192,203,.25));backdrop-filter:blur(18px);box-shadow:0 25px 80px rgba(0,0,0,.25);display:flex;flex-direction:column;justify-content:center;text-align:center;position:relative;overflow:hidden}
+  h1{margin:0 0 12px;font-size:28px;color:#ff4d8d}
+  p{font-size:17px;line-height:1.6;color:#ffffff}
+  .buttons{position:relative;height:160px;margin-top:10px}
+  button{border:none;padding:15px 24px;border-radius:999px;font-size:16px;cursor:pointer;position:absolute}
+  #yes{background:#ff6fa5;color:#fff;left:50%;transform:translateX(-50%);bottom:18px;box-shadow:0 10px 30px rgba(255,105,150,.6)}
+  #no{background:#ffffff;color:#444;top:15px;left:15px}
+  .msg{min-height:48px;font-size:14px;color:#fff0f6;padding:6px 10px}
+  .heart{position:absolute;color:#ff5c93;animation:float 4s linear forwards}
+  @keyframes float{from{transform:translateY(0) scale(1)}to{transform:translateY(-110%) scale(1.8);opacity:0}}
 </style>
 </head>
 <body>
+<div class="screen">
 <div class="card">
-  <h1>RathiDevi ❤️</h1>
-  <p>I didn’t fall in love once… I fall in love every single day when I see you.<br><br>
-  I don’t want just moments with you.<br>
-  I want mornings, fights, laughs, silence and a whole lifetime with you.<br><br>
-  Will you become my forever?</p>
+  <h1>RathiDevi 🌸</h1>
+  <p>Every day with you feels softer than yesterday.<br><br>
+  Not just today… not just tomorrow…<br>
+  I want to love you for all my life.<br><br>
+  Will you be mine forever?</p>
   <div class="buttons">
     <button id="yes">Forever with you 💍</button>
-    <button id="no">Hmm… not yet 🙈</button>
+    <button id="no">Hmm… thinking 🙈</button>
   </div>
   <div class="msg" id="msg"></div>
 </div>
-<div class="hearts" id="hearts"></div>
+</div>
 <script>
 const noBtn=document.getElementById('no');
 const msg=document.getElementById('msg');
-const hearts=document.getElementById('hearts');
 let attempt=0;
-const spotify="https://open.spotify.com/track/0tcKP2nsBy1aiabkXQlXt5";const convince=[ "Are you shy… or making me nervous? 🥺", "My heart already chose you ❤️", "Our story deserves a happy beginning ✨", "I can’t imagine growing old with anyone else", "Even destiny is waiting for your answer", "Your name fits perfectly after mine 😌", "Okay now you’re just teasing me", "My future depends on this click 😭", "You know the answer already…", "Fine… I’ll wait forever for you 💗" ];
+const spotify="https://open.spotify.com/track/0tcKP2nsBy1aiabkXQlXt5";const convince=[ "Are you blushing? 🌸", "My heart already picked you 💗", "You + Me = Home", "Don’t make destiny wait 😌", "I imagined our mornings together ☀️", "And our late night talks 🌙", "And the fights we’ll laugh about later 😄", "Your name fits perfectly with mine", "I don’t want a perfect life… just one with you", "If loving you is a dream, don’t wake me", "Every path I see ends with you beside me", "I didn’t plan my future… until you arrived", "My forever has only one face — yours", "Okay now this is getting emotional 🥺", "Last time asking… come stay with me forever 💍", "I’ll wait forever for you ❤️" ];
 
-function moveButton(){ if(attempt>=convince.length-1){ msg.textContent=convince[convince.length-1]; noBtn.style.display='none'; return; } const maxX=window.innerWidth-140; const maxY=120; const x=Math.random()*maxX; const y=Math.random()*maxY; noBtn.style.left=x+'px'; noBtn.style.top=y+'px'; msg.textContent=convince[attempt]; attempt++; } noBtn.addEventListener('mouseenter',moveButton); noBtn.addEventListener('click',moveButton);
+function moveButton(){ if(attempt>=convince.length-1){ msg.textContent=convince[convince.length-1]; noBtn.style.display='none'; return; } const maxX=document.querySelector('.card').clientWidth-140; const maxY=140; const x=Math.random()*maxX; const y=Math.random()*maxY; noBtn.style.left=x+'px'; noBtn.style.top=y+'px'; msg.textContent=convince[attempt]; attempt++; } // only trigger on tap/click for one-by-one messages let cooldown=false; noBtn.addEventListener('click',()=>{ if(cooldown) return; cooldown=true; moveButton(); setTimeout(()=>cooldown=false,400); });
 
-document.getElementById('yes').onclick=()=>{ document.querySelector('.card').innerHTML=<h1>She said YES ❤️</h1><p>Our story begins now…</p>; for(let i=0;i<45;i++)spawnHeart(); setTimeout(()=>window.open(spotify,'_blank'),600); };
+document.getElementById('yes').onclick=()=>{ document.querySelector('.card').innerHTML=<h1>She said YES ❤️</h1><p>Our forever starts now 🌸</p>; for(let i=0;i<45;i++)spawnHeart(); setTimeout(()=>window.open(spotify,'_blank'),600); };
 
-function spawnHeart(){ const h=document.createElement('div'); h.className='heart'; h.innerHTML='❤'; h.style.left=Math.random()*100+'vw'; h.style.bottom='-20px'; h.style.fontSize=(14+Math.random()*30)+'px'; hearts.appendChild(h); setTimeout(()=>h.remove(),4000); } </script>
+function spawnHeart(){ const h=document.createElement('div'); h.className='heart'; h.innerHTML='❤'; h.style.left=Math.random()*100+'%'; h.style.bottom='-20px'; h.style.fontSize=(14+Math.random()*26)+'px'; document.querySelector('.card').appendChild(h); setTimeout(()=>h.remove(),4000); } </script>
 
 </body>
 </html>
