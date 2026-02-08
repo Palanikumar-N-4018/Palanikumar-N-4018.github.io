@@ -8,7 +8,7 @@
 <style>
 :root { 
     --pink-rich: #ff0a54; 
-    --pink-glow: rgba(255, 10, 84, 0.4);
+    --pink-glow: rgba(255, 10, 84, 0.5);
     --bg: #0a0104; 
 }
 
@@ -23,78 +23,97 @@ body {
 .vignette { position: fixed; inset: 0; background: radial-gradient(circle at center, transparent 0%, #000 95%); z-index: 1; pointer-events: none; }
 canvas { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
 
-/* Bento Layout */
+/* Bento Layout - Matching Your Screenshot */
 .bento-grid { 
     position: relative; z-index: 10; width: 92vw; max-width: 400px; 
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; 
-    transition: 0.8s ease; 
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; 
+    transition: 0.8s cubic-bezier(0.4, 0, 0.2, 1); 
 }
 
 .box { 
-    background: rgba(255, 255, 255, 0.05); 
-    border: 1px solid rgba(255, 10, 84, 0.15); 
-    border-radius: 24px; padding: 22px; 
-    backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.04); 
+    border: 1px solid rgba(255, 255, 255, 0.08); 
+    border-radius: 28px; padding: 25px; 
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
 }
 
-.header-box { grid-column: span 2; text-align: center; border-bottom: 2px solid var(--pink-rich); }
-.header-box h1 { font-family: 'Cinzel', serif; font-size: 28px; margin: 0; color: var(--pink-rich); letter-spacing: 2px; }
-
-.question-box { grid-column: span 2; background: rgba(255, 10, 84, 0.03); text-align: center; }
-.question-box p { font-size: 13px; line-height: 1.6; margin: 0; opacity: 0.8; }
-.question-box span { display: block; margin-top: 10px; font-family: 'Cinzel', serif; font-size: 18px; color: var(--pink-rich); font-weight: 700; text-transform: uppercase; }
+.header-box { 
+    grid-column: span 2; text-align: left; 
+    border-left: 3px solid var(--pink-rich); 
+}
+.header-box span { font-size: 10px; letter-spacing: 3px; color: var(--pink-rich); text-transform: uppercase; font-weight: 700; opacity: 0.8; }
+.header-box h1 { font-family: 'Cinzel', serif; font-size: 32px; margin: 8px 0; color: var(--pink-rich); letter-spacing: 2px; }
+.header-box p { font-size: 13px; font-style: italic; opacity: 0.7; margin: 0; }
 
 #convince-msg { 
-    grid-column: span 2; font-size: 13px; color: #ff85a2; 
-    text-align: center; min-height: 55px; font-style: italic; 
+    grid-column: span 2; font-size: 12px; color: #ff85a2; 
+    text-align: center; min-height: 50px; font-style: italic; 
     display: flex; align-items: center; justify-content: center;
-    padding: 0 15px; background: rgba(0,0,0,0.2); border-radius: 15px;
+    padding: 0 10px; opacity: 0.9;
 }
 
-.date-box { grid-column: span 1; text-align: center; }
-.date-box span { font-size: 10px; color: var(--pink-rich); letter-spacing: 1px; }
-.date-box b { font-family: 'Cinzel', serif; font-size: 16px; color: white; display: block; margin-top: 5px; }
+.date-box { grid-column: span 1; text-align: center; padding: 20px 10px; }
+.date-box span { font-size: 9px; color: var(--pink-rich); letter-spacing: 2px; font-weight: 700; display: block; margin-bottom: 8px; }
+.date-box b { font-family: 'Cinzel', serif; font-size: 18px; color: white; }
 
-.action-area { grid-column: span 2; height: 160px; position: relative; display: flex; flex-direction: column; gap: 12px; justify-content: center; }
+.action-area { grid-column: span 2; display: flex; flex-direction: column; gap: 15px; margin-top: 10px; }
 
-.btn { width: 100%; padding: 18px; border-radius: 50px; border: none; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+.btn { 
+    width: 100%; padding: 20px; border-radius: 50px; border: none; 
+    font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700; 
+    cursor: pointer; transition: 0.3s;
+}
 
-#yes { background: var(--pink-rich); color: white; box-shadow: 0 0 25px var(--pink-glow); text-transform: uppercase; z-index: 10; }
+#yes { 
+    background: var(--pink-rich); color: white; 
+    box-shadow: 0 10px 30px var(--pink-glow); 
+    text-transform: uppercase;
+}
 
 #no { 
-    background: rgba(255, 255, 255, 0.95); color: #111; border: 2px solid #fff;
-    transition: transform 0.1s, clip-path 0.3s ease, opacity 0.3s; 
-    position: relative; box-shadow: 0 0 15px rgba(255,255,255,0.3);
+    background: rgba(255, 255, 255, 0.1); 
+    color: #eee; 
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: clip-path 0.3s ease, transform 0.1s, opacity 0.3s;
 }
 
 .shake { animation: shake 0.2s ease-in-out; }
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-6px) rotate(-1.2deg); }
-    75% { transform: translateX(6px) rotate(1.2deg); }
+    25% { transform: translateX(-6px) rotate(-1deg); }
+    75% { transform: translateX(6px) rotate(1deg); }
 }
 
-/* Perfect Heart SVG Loader */
-#final-view { position: fixed; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 100; text-align: center; background: var(--bg); opacity: 0; transition: opacity 0.8s; }
+/* FIX: PERFECT SVG HEART LOADING SCREEN */
+#final-view { 
+    position: fixed; inset: 0; display: none; flex-direction: column; 
+    align-items: center; justify-content: center; z-index: 100; 
+    text-align: center; background: var(--bg); opacity: 0; 
+    transition: opacity 1s ease; 
+}
+
+.heart-container { position: relative; width: 100px; height: 100px; margin-bottom: 30px; }
 
 .heart-svg {
-    width: 80px; height: 80px; fill: var(--pink-rich);
-    filter: drop-shadow(0 0 15px var(--pink-rich));
-    animation: heartBeat 1s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
-    margin: 30px;
+    width: 100%; height: 100%; fill: var(--pink-rich);
+    filter: drop-shadow(0 0 20px var(--pink-rich));
+    animation: heartBeat 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 @keyframes heartBeat {
   0% { transform: scale(0.95); }
-  5% { transform: scale(1.1); }
-  39% { transform: scale(0.85); }
-  45% { transform: scale(1); }
-  60% { transform: scale(0.95); }
-  100% { transform: scale(0.9); }
+  10% { transform: scale(1.15); }
+  20% { transform: scale(0.95); }
+  35% { transform: scale(1.1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(0.95); }
 }
 
-.progress-bar { width: 220px; height: 3px; background: #222; margin-top: 20px; border-radius: 10px; overflow: hidden; }
-.progress-fill { width: 0%; height: 100%; background: var(--pink-rich); box-shadow: 0 0 10px var(--pink-rich); }
+.progress-bar { width: 180px; height: 3px; background: #222; border-radius: 10px; overflow: hidden; margin: 20px 0; }
+.progress-fill { width: 0%; height: 100%; background: var(--pink-rich); box-shadow: 0 0 15px var(--pink-rich); }
+
+#final-view h2 { font-family: 'Cinzel', serif; font-size: 28px; color: var(--pink-rich); letter-spacing: 4px; margin-bottom: 40px; }
+#final-view p { font-size: 10px; letter-spacing: 3px; opacity: 0.6; text-transform: uppercase; }
 
 </style>
 </head>
@@ -105,34 +124,33 @@ canvas { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
 
 <div class="bento-grid" id="grid">
     <div class="box header-box">
-        <h1>RathiDevi</h1>
+        <span>PROPOSAL DAY</span>
+        <h1>RATHIDEVI</h1>
+        <p>Palanikumar has a question for you... ❤️</p>
     </div>
 
-    <div class="box question-box">
-        <p>Since our first conversation on April 19, you've been my only thought.</p>
-        <span>Will you marry me, Rathi?</span>
-    </div>
+    <div id="convince-msg">Will you make me the happiest man alive?</div>
 
-    <div id="convince-msg">Palanikumar is waiting for your 'Yes'... ❤️</div>
-
-    <div class="box date-box"><span>FIRST MET</span><b>APR 19</b></div>
-    <div class="box date-box"><span>OUR BIG DAY</span><b>MAY 18</b></div>
+    <div class="box date-box"><span>MET ON</span><b>APR 19</b></div>
+    <div class="box date-box"><span>WEDDING</span><b>MAY 18</b></div>
 
     <div class="action-area">
-        <button class="btn" id="yes">YES, I DO! 💍</button>
+        <button class="btn" id="yes">YES, FOREVER! 💍</button>
         <button class="btn" id="no">Thinking... 🤔</button>
     </div>
 </div>
 
 <div id="final-view">
-    <h2 style="font-family: 'Cinzel', serif; font-size: 32px; color: var(--pink-rich); letter-spacing: 3px;">FOREVER COMMITTED</h2>
+    <h2>FOREVER COMMITTED</h2>
     
-    <svg class="heart-svg" viewBox="0 0 32 32">
-        <path d="M16 28.5L14.1 26.8C7.33 20.62 3 16.5 3 11.5 3 7.36 6.36 4 10.5 4c2.34 0 4.58 1.1 6 2.83C17.92 5.1 20.16 4 22.5 4 26.64 4 30 7.36 30 11.5c0 5-4.33 9.12-11.1 15.3L16 28.5z"/>
-    </svg>
+    <div class="heart-container">
+        <svg class="heart-svg" viewBox="0 0 32 32">
+            <path d="M16 28.5L14.1 26.8C7.33 20.62 3 16.5 3 11.5 3 7.36 6.36 4 10.5 4c2.34 0 4.58 1.1 6 2.83C17.92 5.1 20.16 4 22.5 4 26.64 4 30 7.36 30 11.5c0 5-4.33 9.12-11.1 15.3L16 28.5z"/>
+        </svg>
+    </div>
 
     <div class="progress-bar"><div class="progress-fill" id="p-fill"></div></div>
-    <p style="font-size: 11px; margin-top: 20px; letter-spacing: 3px; opacity: 0.6; color: var(--pink-rich);">OPENING OUR SONG...</p>
+    <p>OPENING OUR SONG...</p>
 </div>
 
 <script>
@@ -143,23 +161,25 @@ const grid = document.getElementById('grid');
 const finalView = document.getElementById('final-view');
 const pFill = document.getElementById('p-fill');
 
+// YOUR SPOTIFY LINK
 const spotifyLink = "Https://open.spotify.com/track/5NEGfbKMcNuEWOzpWufScA?si=83BpK46dRl2JxfYJ2aZZTg"; 
 
 const messages = [
-    "I'll buy you the biggest, fluffiest Teddy Bear ever! 🧸",
-    "We'll explore every cool and aesthetic place together! 🌍",
-    "I promise to make you go 'Aww' and 'Haha' every day! 😄",
-    "I'll be your strength in every storm we face. ☔",
-    "I'll remember every tiny detail that makes you smile. ✨",
-    "My home is not a place, it's wherever you are. 🏠",
-    "Wait... the button is actually breaking! Please stop! 😰",
-    "I'll never let a single day pass without saying I love you. ❤️",
-    "You are my soulmate, my best friend, and my future. ♾️",
-    "The 'No' button is gone. There's only one path now... ❤️"
+    "I'll buy you the biggest, fluffiest Teddy Bear! 🧸",
+    "We'll explore every cool place on your list! 🌍",
+    "I'll make you go 'Aww' & 'Haha' every single day! 😄",
+    "I'll be your umbrella in every storm. ☔",
+    "I'll remember every small detail that makes you smile. ✨",
+    "Home is wherever you are, RathiDevi. 🏠",
+    "Wait... the button is actually breaking! 😰",
+    "I'll never let a day go by without saying I love you. ❤️",
+    "You're my soulmate, my best friend, my everything. ♾️",
+    "The button is gone. There's only one answer. ❤️"
 ];
 
 let clicks = 0;
 
+// Jagged "Shatter" damage steps
 const damageSteps = [
     "none", 
     "polygon(0% 15%, 15% 0%, 100% 0%, 100% 100%, 0% 100%)", 
@@ -184,22 +204,18 @@ noBtn.addEventListener('click', () => {
         noBtn.style.opacity = (1.1 - (clicks/10)); 
         
         if (clicks === 10) {
-            setTimeout(() => { 
-                noBtn.style.display = 'none'; 
-                msgBox.style.color = "var(--pink-rich)";
-                msgBox.style.fontWeight = "700";
-            }, 300);
+            setTimeout(() => { noBtn.style.display = 'none'; }, 300);
         }
     }
 });
 
 yesBtn.onclick = () => {
     grid.style.opacity = '0';
-    grid.style.transform = 'translateY(-20px)';
+    grid.style.transform = 'scale(0.95)';
     setTimeout(() => {
         grid.style.display = 'none';
         finalView.style.display = 'flex';
-        setTimeout(() => { finalView.style.opacity = '1'; }, 50);
+        setTimeout(() => { finalView.style.opacity = '1'; }, 100);
         startCelebration();
         
         let w = 0;
@@ -210,7 +226,7 @@ yesBtn.onclick = () => {
                 clearInterval(bar);
                 window.location.href = spotifyLink;
             }
-        }, 80); 
+        }, 60); 
     }, 800);
 };
 
@@ -247,4 +263,3 @@ function animate() {
 </script>
 </body>
 </html>
-
