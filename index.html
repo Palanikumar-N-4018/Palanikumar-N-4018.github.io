@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>For RathiDevi ❤️</title>
 <style>
-  /* Base Styles & Dark High-Contrast Background */
   body {
     margin: 0;
     min-height: 100vh;
@@ -13,12 +12,11 @@
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Segoe UI', Roboto, sans-serif;
     color: #ffffff;
     overflow: hidden;
   }
 
-  /* Star Background Decoration */
   .stars {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -26,7 +24,6 @@
     pointer-events: none;
   }
 
-  /* Glassmorphism Card Container */
   .screen {
     z-index: 10;
     width: min(92vw, 400px);
@@ -43,49 +40,70 @@
     padding: 30px 20px;
     box-sizing: border-box;
     background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     text-align: center;
     position: relative;
     overflow: hidden;
   }
 
+  /* Highlighted Message Area at the Top */
+  .msg-container {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 77, 141, 0.2);
+    border: 1px solid rgba(255, 133, 179, 0.3);
+    border-radius: 20px;
+    padding: 10px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+  }
+
+  #msg {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffd1e3;
+    text-shadow: 0 0 10px rgba(255, 77, 141, 0.5);
+    line-height: 1.4;
+  }
+
   h1 {
-    margin: 0 0 15px;
-    font-size: 32px;
+    margin: 0;
+    font-size: 34px;
     color: #ff85b3;
-    text-shadow: 0 2px 15px rgba(255, 133, 179, 0.3);
+    text-shadow: 0 2px 15px rgba(255, 133, 179, 0.5);
   }
 
   p {
     font-size: 18px;
-    line-height: 1.6;
+    line-height: 1.5;
     color: #f0f0f0;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
-    margin-bottom: 20px;
+    margin: 15px 0;
   }
 
-  /* Button Area Logic */
   .buttons {
     position: relative;
     height: 180px;
-    margin-top: 10px;
+    width: 100%;
   }
 
   button {
     border: none;
-    padding: 15px 25px;
+    padding: 16px 28px;
     border-radius: 50px;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     position: absolute;
     transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     white-space: nowrap;
   }
 
@@ -94,28 +112,18 @@
     color: #fff;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 10px;
-    box-shadow: 0 8px 20px rgba(255, 77, 141, 0.4);
+    bottom: 0;
     z-index: 100;
   }
 
   #no {
-    background: rgba(255, 255, 255, 0.95);
+    background: #ffffff;
     color: #222;
-    top: 20px;
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
   }
 
-  .msg {
-    min-height: 50px;
-    font-size: 15px;
-    color: #ffb3d1;
-    font-style: italic;
-    margin-top: 10px;
-  }
-
-  /* Floating Hearts Animation */
   .heart {
     position: absolute;
     color: #ff4d8d;
@@ -137,17 +145,19 @@
 
 <div class="screen">
   <div class="card" id="mainCard">
+    <div class="msg-container">
+      <div id="msg">Thinking is allowed, but saying 'Yes' is preferred! 😉</div>
+    </div>
+
     <div id="content">
       <h1>RathiDevi 🌸</h1>
-      <p>Every day with you feels softer than yesterday.<br><br>
-      I want to love you for all my life.<br><br>
-      Will you be mine forever?</p>
+      <p>My universe was just a collection of stars until I met you. Now, you're the sun that gives it light.<br><br>
+      Will you make me the luckiest man and be mine forever?</p>
       
       <div class="buttons">
         <button id="no">Hmm… thinking 🙈</button>
-        <button id="yes">Forever with you 💍</button>
+        <button id="yes">Yes, a thousand times! 💍</button>
       </div>
-      <div class="msg" id="msg"></div>
     </div>
   </div>
 </div>
@@ -160,41 +170,44 @@
   const card = document.getElementById('mainCard');
 
   let attempt = 0;
-  // UPDATE: Change this to your desired Spotify Link
-  const spotifyLink = "https://open.spotify.com/track/0tcKP2nsBy1aiabkXQlXt5?si=IN42uNTmT0OVa4BtKUYaHg"
+  const spotifyLink = "https://open.spotify.com/track/0tcKP2nsBy1aiabkXQlXt5?si=IN42uNTmT0OVa4BtKUYaHg"; 
 
   const convince = [
-    "Are you blushing? 🌸",
-    "My heart already picked you 💗",
-    "You + Me = Home",
-    "Don't make destiny wait 😌",
-    "I imagined our mornings together ☀️",
-    "And our late night talks 🌙",
-    "Your name fits perfectly with mine",
-    "If loving you is a dream, don't wake me",
-    "My forever has only one face — yours",
-    "Okay now this is getting emotional 🥺",
-    "Last time asking... stay with me? 💍",
-    "I'll wait forever for you ❤️"
+    "Wait... are you actually thinking about it? 🥺",
+    "Is that finger hovering over 'No'? I'll pretend I didn't see that. 🙈",
+    "I’ve already planned our 50th anniversary, don't break my heart now! 📉",
+    "If you say no, I’ll start singing... and trust me, I’m terrible! 🎤🤣",
+    "Error 404: 'No' option not found in my heart. 🤖❤️",
+    "I’ll be the person who always lets you have the last slice of pizza. 🍕",
+    "You’re the 'Once in a lifetime' kind of magic. ✨",
+    "My mom already thinks you're the one. Don't make me look bad! 😂",
+    "I want to be the one you wake up to for the next 70 years. ☕",
+    "Okay, now you're just playing hard to get... 😍",
+    "I’ll carry all the grocery bags in one trip for you. 💪",
+    "Look into my digital eyes... I love you! 🥺",
+    "Fine, if you say 'Yes', I'll stop being so dramatic. (Maybe) 🎭",
+    "I'll wait forever, but forever is a long time to stand in this card! ⏳",
+    "My soul recognized yours the moment we met. 🌌",
+    "One last chance... will you make my life complete? ❤️"
   ];
 
-  // Function to move the "No" button
   function moveButton() {
     if (attempt >= convince.length - 1) {
       msg.textContent = convince[convince.length - 1];
-      noBtn.style.display = 'none';
+      noBtn.style.opacity = '0';
+      setTimeout(() => noBtn.style.display = 'none', 200);
       return;
     }
 
-    const maxX = card.clientWidth - noBtn.clientWidth - 20;
-    const maxY = 130; // Move within the button area height
+    const maxX = card.clientWidth - noBtn.clientWidth - 40;
+    const maxY = 120; 
 
-    const x = Math.random() * maxX;
-    const y = Math.random() * maxY;
+    const x = Math.max(10, Math.random() * maxX);
+    const y = Math.max(10, Math.random() * maxY);
 
     noBtn.style.left = x + 'px';
     noBtn.style.top = y + 'px';
-    noBtn.style.transform = 'none'; // Clear the initial centering
+    noBtn.style.transform = 'none'; 
     
     msg.textContent = convince[attempt];
     attempt++;
@@ -208,43 +221,40 @@
     setTimeout(() => cooldown = false, 300);
   });
 
-  // "Yes" Button Logic
   yesBtn.onclick = () => {
-    // Fixed the HTML string issue with backticks
     content.innerHTML = `
-      <h1 style="font-size: 40px;">She said YES! ❤️</h1>
-      <p style="font-size: 20px;">Our forever starts now. <br> I love you, RathiDevi 🌸</p>
+      <h1 style="font-size: 40px; margin-top:20px;">I KNEW IT! ❤️</h1>
+      <p style="font-size: 20px;">You just made me the happiest person in the world. <br><br> Our story starts here, RathiDevi. 🌸</p>
     `;
-
-    // Trigger Heart Rain
-    for (let i = 0; i < 50; i++) {
-      setTimeout(spawnHeart, i * 60);
+    msg.textContent = "Best decision ever! 💖✨";
+    msg.parentElement.style.background = "rgba(255, 255, 255, 0.2)";
+    
+    for (let i = 0; i < 60; i++) {
+      setTimeout(spawnHeart, i * 50);
     }
 
-    // Open Spotify
     setTimeout(() => {
       window.open(spotifyLink, '_blank');
-    }, 2000);
+    }, 2500);
   };
 
   function spawnHeart() {
     const h = document.createElement('div');
     h.className = 'heart';
-    h.innerHTML = '❤';
+    h.innerHTML = ['❤','💖','🌸','✨'][Math.floor(Math.random()*4)];
     h.style.left = Math.random() * 100 + '%';
     h.style.bottom = '-10%';
-    h.style.fontSize = (Math.random() * 20 + 15) + 'px';
+    h.style.fontSize = (Math.random() * 20 + 20) + 'px';
     document.body.appendChild(h);
     setTimeout(() => h.remove(), 4000);
   }
 
-  // Add some twinkling stars to the background
   const starField = document.getElementById('starField');
-  for (let i = 0; i < 80; i++) {
+  for (let i = 0; i < 100; i++) {
     const star = document.createElement('div');
     star.style.position = 'absolute';
-    star.style.width = '2px';
-    star.style.height = '2px';
+    star.style.width = Math.random() * 3 + 'px';
+    star.style.height = star.style.width;
     star.style.background = 'white';
     star.style.top = Math.random() * 100 + '%';
     star.style.left = Math.random() * 100 + '%';
