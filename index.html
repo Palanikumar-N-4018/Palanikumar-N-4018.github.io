@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 :root {
-    --accent: #ffb3d1; /* Soft Rose */
+    --accent: #ffb3d1;
     --gold: #d4af37;
     --bg: #050505;
 }
@@ -16,7 +16,7 @@
 
 body {
     margin: 0; padding: 0;
-    min-height: 100svh; /* Stable mobile height */
+    min-height: 100svh;
     background: var(--bg);
     font-family: 'Inter', sans-serif;
     color: white;
@@ -26,7 +26,6 @@ body {
     overflow: hidden;
 }
 
-/* Star Background */
 .stars {
     position: fixed; inset: 0;
     background: radial-gradient(circle at 50% 100%, #1a1a1a 0%, #050505 100%);
@@ -35,15 +34,14 @@ body {
 
 canvas { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
 
-/* Mobile Bento Grid */
 .bento-grid {
     position: relative;
     z-index: 10;
-    width: 90vw;
+    width: 92vw;
     max-width: 400px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto auto auto auto;
     gap: 12px;
     transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -57,16 +55,25 @@ canvas { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
     -webkit-backdrop-filter: blur(12px);
 }
 
-.header-box { grid-column: span 2; }
+.header-box { grid-column: span 2; position: relative;}
 .header-box h1 {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(32px, 8vw, 40px);
     margin: 0; font-weight: 300; color: var(--accent);
 }
 
-.date-box { grid-column: span 1; display: flex; flex-direction: column; justify-content: center; }
+#convince-msg {
+    font-size: 13px;
+    color: var(--gold);
+    margin-top: 8px;
+    font-style: italic;
+    min-height: 18px;
+    transition: 0.3s;
+}
+
+.date-box { grid-column: span 1; text-align: center; }
 .date-box span { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; }
-.date-box b { font-size: 16px; color: var(--gold); margin-top: 4px; }
+.date-box b { font-size: 16px; color: white; margin-top: 4px; display: block; }
 
 .story-box { grid-column: span 2; }
 .story-box p { font-size: 14px; line-height: 1.6; margin: 0; opacity: 0.8; font-weight: 300; }
@@ -77,26 +84,25 @@ canvas { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
     position: relative; 
     display: flex; 
     flex-direction: column; 
-    justify-content: center; 
-    overflow: hidden;
+    justify-content: center;
 }
 
 .btn {
     width: 100%;
     padding: 16px;
-    border-radius: 16px;
+    border-radius: 18px;
     border: none;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-#yes { background: white; color: black; position: relative; z-index: 100; }
+#yes { background: white; color: black; z-index: 100; box-shadow: 0 10px 20px rgba(255,255,255,0.1); }
 #no { 
-    background: transparent; 
+    background: rgba(255,255,255,0.05); 
     color: white; 
-    border: 1px solid rgba(255,255,255,0.2); 
+    border: 1px solid rgba(255,255,255,0.1); 
     position: absolute; 
     width: 80%; 
     left: 10%; 
@@ -104,7 +110,6 @@ canvas { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
     z-index: 50;
 }
 
-/* Final View */
 #final-view {
     position: fixed; inset: 0;
     display: flex; flex-direction: column;
@@ -113,19 +118,20 @@ canvas { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
     z-index: 20; text-align: center;
     padding: 20px;
 }
-#final-view h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 10vw, 60px); margin: 0; color: var(--accent); }
+#final-view h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 12vw, 64px); margin: 0; color: var(--accent); }
 
 .pill {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 10px 20px;
+    padding: 12px 24px;
     border-radius: 100px;
     font-size: 12px;
     margin-top: 25px;
     letter-spacing: 1px;
+    color: var(--gold);
 }
 
-.fade-out { opacity: 0; transform: scale(0.9); filter: blur(10px); }
+.fade-out { opacity: 0; transform: scale(0.9) translateY(20px); filter: blur(15px); }
 </style>
 </head>
 <body>
@@ -135,32 +141,33 @@ canvas { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
 
 <div class="bento-grid" id="grid">
     <div class="box header-box">
-        <span style="font-size: 10px; letter-spacing: 3px; opacity: 0.4;">TO MY FOREVER</span>
+        <span style="font-size: 9px; letter-spacing: 4px; opacity: 0.4;">PROPOSAL DAY</span>
         <h1>RathiDevi</h1>
+        <div id="convince-msg">Palanikumar is waiting for a 'Yes'! ❤️</div>
     </div>
 
     <div class="box date-box">
-        <span>MET</span>
+        <span>FIRST MET</span>
         <b>APR 19</b>
     </div>
     <div class="box date-box">
-        <span>MARRY</span>
+        <span>BIG DAY</span>
         <b>MAY 18</b>
     </div>
 
     <div class="box story-box">
-        <p>Palanikumar believes every star aligned the day you met. Now, he’s ready for the rest of our lives.</p>
+        <p>You are the best decision Palanikumar ever made. Ready to make it official forever?</p>
     </div>
 
-    <div class="box action-box" id="area">
+    <div class="box action-box">
         <button class="btn" id="yes">Accept Forever</button>
-        <button class="btn" id="no">Thinking...</button>
+        <button class="btn" id="no">Hmm, thinking... 🙈</button>
     </div>
 </div>
 
 <div id="final-view">
     <span style="letter-spacing: 5px; opacity: 0.5; font-size: 10px; margin-bottom: 15px;">PALANIKUMAR & RATHIDEVI</span>
-    <h2>It was always you.</h2>
+    <h2>Forever Starts Now.</h2>
     <div class="pill" id="timer">00D 00H 00M 00S</div>
 </div>
 
@@ -168,25 +175,45 @@ canvas { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
 const noBtn = document.getElementById('no');
 const yesBtn = document.getElementById('yes');
 const grid = document.getElementById('grid');
+const convinceMsg = document.getElementById('convince-msg');
 const finalView = document.getElementById('final-view');
 const canvas = document.getElementById('fireworks');
 const ctx = canvas.getContext('2d');
 
 const startDate = new Date('2025-04-19T00:00:00');
 
-// Mobile Escape Logic
-noBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    moveNo();
-});
-noBtn.addEventListener('mouseover', moveNo);
+const funnyMessages = [
+    "Wait, are you actually thinking about it? 🥺",
+    "I've already told my mom you said yes! 🏃‍♂️",
+    "Marriage on May 18th is non-refundable! 💍",
+    "I'll carry all the grocery bags for life. 💪",
+    "You're stuck with Palanikumar anyway! ❤️",
+    "Error 404: 'No' button is broken. 🔧",
+    "Look into my digital eyes... please? 🥺",
+    "One 'Yes' = Infinite Biryani/Pizza! 🍕",
+    "I'm the only Palanikumar you'll ever need. 😉",
+    "Just click the white button already! 😂"
+];
 
-function moveNo() {
-    const x = Math.random() * 100 - 50;
-    const y = Math.random() * 80 - 40;
+let msgIndex = 0;
+
+function moveNo(e) {
+    if(e) e.preventDefault();
+    const x = Math.random() * 120 - 60;
+    const y = Math.random() * 100 - 50;
     noBtn.style.transform = `translate(${x}px, ${y}px)`;
-    noBtn.style.opacity = "0.6";
+    
+    // Update funny message
+    convinceMsg.style.opacity = '0';
+    setTimeout(() => {
+        convinceMsg.innerText = funnyMessages[msgIndex];
+        convinceMsg.style.opacity = '1';
+        msgIndex = (msgIndex + 1) % funnyMessages.length;
+    }, 200);
 }
+
+noBtn.addEventListener('touchstart', moveNo);
+noBtn.addEventListener('mouseover', moveNo);
 
 function updateTimer() {
     const diff = new Date() - startDate;
@@ -211,6 +238,7 @@ yesBtn.onclick = () => {
     }, 12000);
 };
 
+// ... Fireworks & Stars logic remains the same for high performance ...
 let particles = [];
 function initCelebration() {
     canvas.width = window.innerWidth;
@@ -222,37 +250,25 @@ function initCelebration() {
 function animate() {
     ctx.fillStyle = 'rgba(5, 5, 5, 0.15)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
     if (Math.random() < 0.15) {
         const x = Math.random() * canvas.width;
         const color = Math.random() > 0.5 ? '#ffb3d1' : '#d4af37';
         for(let i=0; i<40; i++) {
-            particles.push({
-                x: x,
-                y: canvas.height,
-                vx: Math.random() * 4 - 2,
-                vy: -Math.random() * 12 - 8,
-                life: 1,
-                c: color
-            });
+            particles.push({x: x, y: canvas.height, vx: Math.random() * 4 - 2, vy: -Math.random() * 12 - 8, life: 1, c: color});
         }
     }
-
     particles.forEach((p, i) => {
         p.x += p.vx; p.y += p.vy; p.vy += 0.2; p.life -= 0.015;
-        ctx.globalAlpha = p.life;
+        ctx.globalAlpha = Math.max(0, p.life);
         ctx.fillStyle = p.c;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 1.5, 0, Math.PI*2);
-        ctx.fill();
+        ctx.beginPath(); ctx.arc(p.x, p.y, 1.5, 0, Math.PI*2); ctx.fill();
         if (p.life <= 0) particles.splice(i, 1);
     });
     requestAnimationFrame(animate);
 }
 
-// Background Stars
 const starsContainer = document.querySelector('.stars');
-for(let i=0; i<70; i++) {
+for(let i=0; i<75; i++) {
     const star = document.createElement('div');
     star.style.position = 'absolute';
     star.style.width = star.style.height = Math.random() * 2 + 'px';
