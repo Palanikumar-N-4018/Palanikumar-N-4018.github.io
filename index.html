@@ -5,152 +5,69 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>For RathiDevi ❤️</title>
 <style>
-body{
-  margin:0;
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#050505;
-  font-family:'Segoe UI',Roboto,sans-serif;
-  color:#fff;
-  overflow:hidden;
-}
-
-/* background */
-.stars{
-  position:fixed;
-  inset:0;
-  z-index:0;
-  background:radial-gradient(circle at center,#1b2735 0%,#090a0f 100%);
-}
-
-canvas{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:5;
-}
-
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#050505;font-family:'Segoe UI',Roboto,sans-serif;color:#fff;overflow:hidden;}
+.stars{position:fixed;inset:0;z-index:0;background:radial-gradient(circle at center,#1b2735 0%,#090a0f 100%);}
+canvas{position:fixed;inset:0;pointer-events:none;z-index:5;}
 .screen{z-index:10;width:min(92vw,400px);aspect-ratio:9/16;display:flex;align-items:center;justify-content:center;}
-
-.card{
-  width:100%;height:100%;
-  border-radius:30px;
-  padding:30px 20px;
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(20px);
-  border:1px solid rgba(255,255,255,0.15);
-  box-shadow:0 25px 50px rgba(0,0,0,0.8);
-  display:flex;flex-direction:column;justify-content:space-between;text-align:center;
-  transition:all .9s ease;
-}
-
-/* remove card after yes */
-.card.fadeout{
-  opacity:0;
-  transform:scale(1.15);
-  filter:blur(25px);
-  pointer-events:none;
-}
-
-.msg-container{
-  height:90px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(255,77,141,.15);
-  border-radius:20px;
-  padding:10px;
-}
-
+.card{width:100%;height:100%;border-radius:30px;padding:30px 20px;background:rgba(255,255,255,0.08);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.15);box-shadow:0 25px 50px rgba(0,0,0,0.8);display:flex;flex-direction:column;justify-content:space-between;text-align:center;transition:all .9s ease;}
+.card.fadeout{opacity:0;transform:scale(1.15);filter:blur(25px);pointer-events:none;}
+.msg-container{height:90px;display:flex;align-items:center;justify-content:center;background:rgba(255,77,141,.15);border-radius:20px;padding:10px;}
 #msg{font-size:16px;font-weight:600;color:#ffd1e3;}
-
 h1{margin:0;font-size:34px;color:#ff85b3;text-shadow:0 2px 15px rgba(255,133,179,.5);}
 p{font-size:18px;line-height:1.5;color:#f0f0f0;margin:15px 0;}
-
 .buttons{position:relative;height:180px;width:100%;}
-button{
-  border:none;padding:16px 28px;border-radius:50px;
-  font-size:16px;font-weight:700;cursor:pointer;
-  position:absolute;transition:.25s ease;
-}
-
+button{border:none;padding:16px 28px;border-radius:50px;font-size:16px;font-weight:700;cursor:pointer;position:absolute;transition:.25s ease;}
 #yes{background:#ff4d8d;color:#fff;left:50%;transform:translateX(-50%);bottom:0;}
 #no{background:#fff;color:#222;top:0;left:50%;transform:translateX(-50%);}
+.rose{position:fixed;font-size:30px;pointer-events:none;z-index:20;animation:fall linear forwards;}
+@keyframes fall{0%{transform:translateY(-10vh) rotate(0deg);opacity:1;}100%{transform:translateY(110vh) rotate(360deg);opacity:0;}}
 
-/* falling roses */
-.rose{
-  position:fixed;
-  font-size:30px;
-  pointer-events:none;
-  z-index:20;
-  animation:fall linear forwards;
-}
+/* Final Screen Layout */
+.finalContainer{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:15;opacity:0;animation:reveal 2s ease forwards;}
+.timer{font-size:14px;color:#ffb3d1;margin-top:20px;letter-spacing:1px;background:rgba(0,0,0,0.3);padding:10px 20px;border-radius:20px;}
+.timeline{font-size:12px;margin-top:15px;color:rgba(255,255,255,0.6);display:flex;gap:10px;}
+.timeline span{border-bottom:1px solid #ff4d8d;padding-bottom:2px;}
 
-@keyframes fall{
-  0%{transform:translateY(-10vh) rotate(0deg);opacity:1;}
-  100%{transform:translateY(110vh) rotate(360deg);opacity:0;}
-}
+@keyframes reveal{to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+<div class="stars" id="starField"></div>
+<canvas id="fireworksCanvas"></canvas>
+<audio id="bgMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
 
-/* final text */
-.finalText{
-  position:fixed;
-  inset:0;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  z-index:15;
-  animation:reveal 2s ease forwards;
-}
-
-@keyframes reveal{
-  from{opacity:0;transform:translateY(40px) scale(.9);}
-  to{opacity:1;transform:translateY(0) scale(1);}
-}
-</style></head><body><div class="stars" id="starField"></div>
-<canvas id="fireworksCanvas"></canvas><div class="screen">
-<div class="card" id="mainCard"><div class="msg-container">
-<div id="msg">Thinking is fine, but I'm hoping for a 'Yes'! 😉</div>
-</div><div id="content">
-<h1>RathiDevi 🌸</h1>
-<p>
-My universe was just a collection of stars until I met you.
-Now, you're the sun that gives it light.<br><br>
-Will you make me the luckiest man and be mine forever?
-</p><div class="buttons">
-<button id="no">Hmm… thinking 🙈</button>
-<button id="yes">Yes, a thousand times! 💍</button>
+<div class="screen">
+  <div class="card" id="mainCard">
+    <div class="msg-container"><div id="msg">Thinking is fine, but I'm hoping for a 'Yes'! 😉</div></div>
+    <div id="content">
+      <h1>RathiDevi 🌸</h1>
+      <p>My universe was just a collection of stars until I met you on <b>April 19th</b>.<br><br>
+      Will you make me the luckiest man and be mine forever?</p>
+      <div class="buttons">
+        <button id="no">Hmm… thinking 🙈</button>
+        <button id="yes">Yes, a thousand times! 💍</button>
+      </div>
+    </div>
+  </div>
 </div>
-</div></div>
-</div><script>
+
+<script>
 const noBtn=document.getElementById('no');
 const yesBtn=document.getElementById('yes');
 const msg=document.getElementById('msg');
 const card=document.getElementById('mainCard');
 const canvas=document.getElementById('fireworksCanvas');
+const music=document.getElementById('bgMusic');
 const ctx=canvas.getContext('2d');
 
 let attempt=0;
 const spotifyLink="https://open.spotify.com/track/0tcKP2nsBy1aiabkXQlXt5?si=IN42uNTmT0OVa4BtKUYaHg";
+const startDate = new Date('2025-04-19T00:00:00');
 
-const convince=[
-"Wait... are you actually thinking about it? 🥺",
-"I’ve already planned our 50th anniversary! 📅",
-"You’re my once in a lifetime magic ✨",
-"I'll carry all the grocery bags 💪",
-"Look into my digital eyes... 🥺",
-"Last chance... will you complete me? ❤️"
-];
+const convince=["Wait... are you actually thinking? 🥺","Error 404: 'No' not found ❤️","I've already planned our 50th! 📅","You're my once in a lifetime magic ✨","Met on April 19, Marriage on May 18... destiny? ❤️","Last chance... complete me? ❤️"];
 
 function moveButton(){
-  if(attempt>=convince.length-1){
-    msg.textContent=convince[convince.length-1];
-    noBtn.style.display='none';
-    return;
-  }
+  if(attempt>=convince.length-1){msg.textContent=convince[convince.length-1];noBtn.style.display='none';return;}
   noBtn.style.left=Math.random()*260+'px';
   noBtn.style.top=Math.random()*120+'px';
   noBtn.style.transform='none';
@@ -158,81 +75,77 @@ function moveButton(){
 }
 noBtn.addEventListener('click',moveButton);
 
-/* fireworks */
-let particles=[];
-function createFirework(){
-  const x=Math.random()*canvas.width;
-  const y=Math.random()*canvas.height/2;
-  const color=`hsl(${Math.random()*360},100%,60%)`;
-  for(let i=0;i<70;i++){
-    particles.push({x,y,dx:(Math.random()-.5)*8,dy:(Math.random()-.5)*8,size:Math.random()*3,alpha:1,color});
-  }
+function updateTimer() {
+    const now = new Date();
+    const diff = now - startDate;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const mins = Math.floor((diff / 1000 / 60) % 60);
+    const secs = Math.floor((diff / 1000) % 60);
+    const timerElem = document.getElementById('timeCounter');
+    if(timerElem) timerElem.innerText = `${days} Days, ${hours}h, ${mins}m, ${secs}s since we met`;
 }
 
+/* Fireworks & Roses logic (Same as previous polished version) */
+let particles=[];
+function createFirework(){
+  const x=Math.random()*canvas.width; const y=Math.random()*canvas.height/2;
+  const color=`hsl(${Math.random()*360},100%,60%)`;
+  for(let i=0;i<70;i++){particles.push({x,y,dx:(Math.random()-.5)*8,dy:(Math.random()-.5)*8,size:Math.random()*3,alpha:1,color});}
+}
 function animateFireworks(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
   particles.forEach((p,i)=>{
     p.x+=p.dx;p.y+=p.dy;p.dy+=.05;p.alpha-=.008;
-    ctx.globalAlpha=p.alpha;
-    ctx.fillStyle=p.color;
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-    ctx.fill();
+    ctx.globalAlpha=p.alpha; ctx.fillStyle=p.color;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();
     if(p.alpha<=0)particles.splice(i,1);
   });
   requestAnimationFrame(animateFireworks);
 }
-
-/* roses */
 function spawnRose(){
-  const r=document.createElement('div');
-  r.className='rose';
-  r.innerHTML='🌹';
-  r.style.left=Math.random()*100+'vw';
-  r.style.animationDuration=(Math.random()*3+4)+'s';
-  document.body.appendChild(r);
-  setTimeout(()=>r.remove(),7000);
+  const r=document.createElement('div');r.className='rose';r.innerHTML='🌹';
+  r.style.left=Math.random()*100+'vw';r.style.animationDuration=(Math.random()*3+4)+'s';
+  document.body.appendChild(r);setTimeout(()=>r.remove(),7000);
 }
 
-/* YES click */
 yesBtn.onclick=()=>{
-  canvas.width=window.innerWidth;
-  canvas.height=window.innerHeight;
-
+  canvas.width=window.innerWidth; canvas.height=window.innerHeight;
   card.classList.add('fadeout');
-  setTimeout(()=>card.remove(),900);
+  music.play(); // Starts the romantic music
 
-  const final=document.createElement('div');
-  final.className='finalText';
-  final.innerHTML=`<h1 style="font-size:56px;color:#ff4d8d;text-shadow:0 0 30px #ff4d8d;">
-  I LOVE YOU <br> RATHIDEVI ❤️</h1>
-  <p style="font-size:26px;font-weight:bold;">Forever starts now.</p>`;
-  document.body.appendChild(final);
+  setTimeout(()=>{
+    card.remove();
+    const final=document.createElement('div');
+    final.className='finalContainer';
+    final.innerHTML=`
+      <h1 style="font-size:48px;color:#ff4d8d;text-shadow:0 0 30px #ff4d8d;">I LOVE YOU <br> RATHIDEVI ❤️</h1>
+      <p style="font-size:22px;">My Forever & Always.</p>
+      <div class="timer" id="timeCounter"></div>
+      <div class="timeline">
+        <span>April 19 Met</span> ➔ <span>Engaged</span> ➔ <span>May 18 Marriage</span>
+      </div>
+    `;
+    document.body.appendChild(final);
+    setInterval(updateTimer, 1000);
+  },900);
 
   animateFireworks();
   const f=setInterval(createFirework,500);
   const r=setInterval(spawnRose,220);
 
-  // Reverted to standard window.open logic with 10s delay
-  setTimeout(()=>{
-    window.open(spotifyLink, '_blank');
-  },10000);
-  
-  setTimeout(()=>{clearInterval(f);clearInterval(r);},25000);
+  setTimeout(()=>{ window.open(spotifyLink, '_blank'); },10000);
+  setTimeout(()=>{ clearInterval(f);clearInterval(r); },30000);
 };
 
-/* stars */
+/* Star background */
 const starField=document.getElementById('starField');
 for(let i=0;i<100;i++){
-  const s=document.createElement('div');
-  s.style.position='absolute';
-  s.style.width='2px';
-  s.style.height='2px';
-  s.style.background='white';
-  s.style.top=Math.random()*100+'%';
-  s.style.left=Math.random()*100+'%';
-  s.style.opacity=Math.random();
-  starField.appendChild(s);
+  const s=document.createElement('div');s.style.position='absolute';s.style.width='2px';s.style.height='2px';
+  s.style.background='white';s.style.top=Math.random()*100+'%';s.style.left=Math.random()*100+'%';
+  s.style.opacity=Math.random();starField.appendChild(s);
 }
-</script></body>
+</script>
+</body>
 </html>
+
