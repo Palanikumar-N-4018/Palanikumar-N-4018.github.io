@@ -1,8 +1,10 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>For RathiDevi ❤️</title><style>
+<title>For RathiDevi ❤️</title>
+<style>
 body{
   margin:0;
   min-height:100vh;
@@ -15,6 +17,7 @@ body{
   overflow:hidden;
 }
 
+/* background */
 .stars{
   position:fixed;
   inset:0;
@@ -43,6 +46,7 @@ canvas{
   transition:all .9s ease;
 }
 
+/* remove card after yes */
 .card.fadeout{
   opacity:0;
   transform:scale(1.15);
@@ -75,6 +79,7 @@ button{
 #yes{background:#ff4d8d;color:#fff;left:50%;transform:translateX(-50%);bottom:0;}
 #no{background:#fff;color:#222;top:0;left:50%;transform:translateX(-50%);}
 
+/* falling roses */
 .rose{
   position:fixed;
   font-size:30px;
@@ -88,6 +93,7 @@ button{
   100%{transform:translateY(110vh) rotate(360deg);opacity:0;}
 }
 
+/* final text */
 .finalText{
   position:fixed;
   inset:0;
@@ -207,12 +213,12 @@ yesBtn.onclick=()=>{
   const f=setInterval(createFirework,500);
   const r=setInterval(spawnRose,220);
 
-  // SIMPLE DELAYED OPEN (your requirement)
+  // Reverted to standard window.open logic with 10s delay
   setTimeout(()=>{
-    window.open(spotifyLink,'_blank');
+    window.open(spotifyLink, '_blank');
   },10000);
-
-  setTimeout(()=>{clearInterval(f);clearInterval(r);},20000);
+  
+  setTimeout(()=>{clearInterval(f);clearInterval(r);},25000);
 };
 
 /* stars */
