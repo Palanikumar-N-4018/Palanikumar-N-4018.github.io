@@ -59,19 +59,12 @@ canvas { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
 
 .btn { width: 100%; padding: 18px; border-radius: 50px; border: none; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: 0.2s; }
 
-#yes { 
-    background: var(--pink-rich); color: white; 
-    box-shadow: 0 0 25px var(--pink-glow); 
-    text-transform: uppercase; z-index: 10;
-}
+#yes { background: var(--pink-rich); color: white; box-shadow: 0 0 25px var(--pink-glow); text-transform: uppercase; z-index: 10; }
 
 #no { 
-    background: rgba(255, 255, 255, 0.95); 
-    color: #111; 
-    border: 2px solid #fff;
+    background: rgba(255, 255, 255, 0.95); color: #111; border: 2px solid #fff;
     transition: transform 0.1s, clip-path 0.3s ease, opacity 0.3s; 
-    position: relative;
-    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+    position: relative; box-shadow: 0 0 15px rgba(255,255,255,0.3);
 }
 
 .shake { animation: shake 0.2s ease-in-out; }
@@ -81,18 +74,24 @@ canvas { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
     75% { transform: translateX(6px) rotate(1.2deg); }
 }
 
-#final-view { position: fixed; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 100; text-align: center; background: var(--bg); }
+/* Perfect Heart SVG Loader */
+#final-view { position: fixed; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 100; text-align: center; background: var(--bg); opacity: 0; transition: opacity 0.8s; }
 
-.heart-loader { 
-    width: 60px; height: 60px; background: var(--pink-rich); 
-    transform: rotate(45deg); animation: beat 0.8s infinite; 
-    position: relative; margin: 30px; 
-    box-shadow: 0 0 30px var(--pink-glow);
+.heart-svg {
+    width: 80px; height: 80px; fill: var(--pink-rich);
+    filter: drop-shadow(0 0 15px var(--pink-rich));
+    animation: heartBeat 1s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+    margin: 30px;
 }
-.heart-loader:before, .heart-loader:after { content: ""; width: 60px; height: 60px; background: var(--pink-rich); border-radius: 50%; position: absolute; }
-.heart-loader:before { left: -30px; } .heart-loader:after { top: -30px; }
 
-@keyframes beat { 0%, 100% { transform: scale(1) rotate(45deg); } 50% { transform: scale(1.2) rotate(45deg); } }
+@keyframes heartBeat {
+  0% { transform: scale(0.95); }
+  5% { transform: scale(1.1); }
+  39% { transform: scale(0.85); }
+  45% { transform: scale(1); }
+  60% { transform: scale(0.95); }
+  100% { transform: scale(0.9); }
+}
 
 .progress-bar { width: 220px; height: 3px; background: #222; margin-top: 20px; border-radius: 10px; overflow: hidden; }
 .progress-fill { width: 0%; height: 100%; background: var(--pink-rich); box-shadow: 0 0 10px var(--pink-rich); }
@@ -127,7 +126,11 @@ canvas { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
 
 <div id="final-view">
     <h2 style="font-family: 'Cinzel', serif; font-size: 32px; color: var(--pink-rich); letter-spacing: 3px;">FOREVER COMMITTED</h2>
-    <div class="heart-loader"></div>
+    
+    <svg class="heart-svg" viewBox="0 0 32 32">
+        <path d="M16 28.5L14.1 26.8C7.33 20.62 3 16.5 3 11.5 3 7.36 6.36 4 10.5 4c2.34 0 4.58 1.1 6 2.83C17.92 5.1 20.16 4 22.5 4 26.64 4 30 7.36 30 11.5c0 5-4.33 9.12-11.1 15.3L16 28.5z"/>
+    </svg>
+
     <div class="progress-bar"><div class="progress-fill" id="p-fill"></div></div>
     <p style="font-size: 11px; margin-top: 20px; letter-spacing: 3px; opacity: 0.6; color: var(--pink-rich);">OPENING OUR SONG...</p>
 </div>
@@ -140,7 +143,6 @@ const grid = document.getElementById('grid');
 const finalView = document.getElementById('final-view');
 const pFill = document.getElementById('p-fill');
 
-// REVERTED TO SPOTIFY LINK AS REQUESTED
 const spotifyLink = "Https://open.spotify.com/track/5NEGfbKMcNuEWOzpWufScA?si=83BpK46dRl2JxfYJ2aZZTg"; 
 
 const messages = [
@@ -158,7 +160,6 @@ const messages = [
 
 let clicks = 0;
 
-// Jagged "Shatter" damage steps (polygon cuts)
 const damageSteps = [
     "none", 
     "polygon(0% 15%, 15% 0%, 100% 0%, 100% 100%, 0% 100%)", 
@@ -216,13 +217,11 @@ yesBtn.onclick = () => {
 const canvas = document.getElementById('fireworks');
 const ctx = canvas.getContext('2d');
 let particles = [];
-
 function startCelebration() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     animate();
 }
-
 function animate() {
     ctx.fillStyle = 'rgba(10, 1, 4, 0.2)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -248,3 +247,4 @@ function animate() {
 </script>
 </body>
 </html>
+
