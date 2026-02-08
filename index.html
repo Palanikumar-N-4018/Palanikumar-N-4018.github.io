@@ -7,260 +7,201 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 :root { 
-    --pink-rich: #ff0a54; /* Vibrant Rich Pink */
+    --pink-rich: #ff0a54; 
     --pink-glow: rgba(255, 10, 84, 0.4);
-    --bg: #120205; /* Deep Dark Plum/Black */
-    --surface: rgba(255, 255, 255, 0.05); 
-    --text-main: #ffe5ec;
+    --bg: #0a0104; 
 }
 
 * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; outline: none; user-select: none; }
 
 body { 
     margin: 0; padding: 0; min-height: 100svh; background: var(--bg); 
-    font-family: 'Inter', sans-serif; color: var(--text-main); 
+    font-family: 'Inter', sans-serif; color: #ffe5ec; 
     display: flex; align-items: center; justify-content: center; overflow: hidden; 
 }
 
-/* Background Atmosphere */
-.vignette {
-    position: fixed; inset: 0;
-    background: radial-gradient(circle at center, transparent 0%, #000 90%);
-    z-index: 1; pointer-events: none;
-}
-.pink-bloom {
-    position: fixed; top: -20%; left: -20%; width: 50vw; height: 50vw;
-    background: var(--pink-rich); filter: blur(150px); opacity: 0.15;
-    animation: pulse 10s infinite alternate;
-}
-
-@keyframes pulse { 0% { opacity: 0.1; } 100% { opacity: 0.25; } }
-
+.vignette { position: fixed; inset: 0; background: radial-gradient(circle at center, transparent 0%, #000 95%); z-index: 1; pointer-events: none; }
 canvas { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
 
-/* Bento Grid */
+/* Bento Layout */
 .bento-grid { 
-    position: relative; z-index: 10; width: 90vw; max-width: 400px; 
+    position: relative; z-index: 10; width: 92vw; max-width: 400px; 
     display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; 
-    transition: opacity 0.8s ease, transform 0.8s ease; 
+    transition: 0.8s ease; 
 }
 
 .box { 
-    background: var(--surface); 
-    border: 1px solid rgba(255, 10, 84, 0.2); 
-    border-radius: 20px; padding: 22px; 
-    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    background: rgba(255, 255, 255, 0.05); 
+    border: 1px solid rgba(255, 10, 84, 0.15); 
+    border-radius: 24px; padding: 22px; 
+    backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
 }
 
-.header-box { grid-column: span 2; border-left: 3px solid var(--pink-rich); }
-.header-box h1 { 
-    font-family: 'Cinzel', serif; font-size: 32px; margin: 0; 
-    letter-spacing: 1px; color: var(--pink-rich); text-shadow: 0 0 15px var(--pink-glow);
-}
+.header-box { grid-column: span 2; text-align: center; border-top: 2px solid var(--pink-rich); }
+.header-box h1 { font-family: 'Cinzel', serif; font-size: 28px; margin: 0; color: var(--pink-rich); letter-spacing: 2px; }
+
+/* The Rephrased Question */
+.question-box { grid-column: span 2; background: rgba(255, 10, 84, 0.03); }
+.question-box p { font-size: 14px; line-height: 1.6; margin: 0; opacity: 0.9; font-weight: 300; }
+.question-box span { display: block; margin-top: 10px; font-family: 'Cinzel', serif; font-size: 17px; color: var(--pink-rich); font-weight: 700; }
 
 #convince-msg { 
-    font-size: 14px; color: #ffbfd3; margin-top: 10px; 
-    min-height: 40px; transition: 0.2s; font-style: italic; font-weight: 300;
-    display: flex; align-items: center;
+    grid-column: span 2; font-size: 13px; color: #ff85a2; 
+    text-align: center; min-height: 40px; font-style: italic; 
+    animation: fadeIn 0.3s; 
 }
 
-.date-box { grid-column: span 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-.date-box span { font-size: 10px; letter-spacing: 2px; color: var(--pink-rich); opacity: 0.8; font-weight: 600; }
-.date-box b { font-family: 'Cinzel', serif; font-size: 18px; color: white; margin-top: 5px; }
+.date-box { grid-column: span 1; text-align: center; }
+.date-box b { font-family: 'Cinzel', serif; font-size: 16px; color: white; display: block; margin-top: 5px; }
 
-.action-box { 
-    grid-column: span 2; height: 160px; position: relative; 
-    background: transparent; border: none; padding: 0; box-shadow: none;
-}
+/* Buttons */
+.action-area { grid-column: span 2; height: 160px; position: relative; display: flex; flex-direction: column; gap: 10px; justify-content: center; }
 
-.btn { 
-    width: 100%; padding: 18px; border-radius: 50px; border: none; 
-    font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700; 
-    cursor: pointer; transition: all 0.3s; letter-spacing: 0.5px;
-}
+.btn { width: 100%; padding: 18px; border-radius: 50px; border: none; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: 0.3s; }
 
-#yes { 
-    background: var(--pink-rich); color: white; z-index: 20; 
-    box-shadow: 0 5px 25px var(--pink-glow);
-    position: relative;
-    text-transform: uppercase;
-}
+#yes { background: var(--pink-rich); color: white; box-shadow: 0 0 20px var(--pink-glow); text-transform: uppercase; z-index: 10; }
 
 #no { 
-    background: rgba(255, 255, 255, 0.08); color: #ffadd2; 
-    border: 1px solid rgba(255, 255, 255, 0.2); 
-    position: absolute; width: 80%; bottom: 10px; left: 10%;
-    z-index: 30; transition: 0.2s ease-out;
+    background: #1a1a1a; color: #777; border: 1px solid #333; 
+    transition: transform 0.1s, clip-path 0.3s ease; 
+    position: relative; overflow: hidden;
+}
+
+/* Breaking Animation */
+.shake { animation: shake 0.2s ease-in-out; }
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px) rotate(-1deg); }
+    75% { transform: translateX(5px) rotate(1deg); }
 }
 
 /* Final View */
-#final-view { 
-    position: fixed; inset: 0; display: none; flex-direction: column; 
-    align-items: center; justify-content: center; opacity: 0; 
-    z-index: 100; text-align: center; padding: 20px;
-    background: rgba(10, 0, 5, 0.95);
-}
+#final-view { position: fixed; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 100; text-align: center; background: var(--bg); }
+.heart-loader { width: 50px; height: 50px; background: var(--pink-rich); transform: rotate(45deg); animation: beat 1.2s infinite; position: relative; margin: 20px; }
+.heart-loader:before, .heart-loader:after { content: ""; width: 50px; height: 50px; background: var(--pink-rich); border-radius: 50%; position: absolute; }
+.heart-loader:before { left: -25px; } .heart-loader:after { top: -25px; }
+@keyframes beat { 0%, 100% { transform: scale(1) rotate(45deg); } 50% { transform: scale(1.1) rotate(45deg); } }
 
-/* Luxury Heart Loader (Pink) */
-.heart-loader {
-  display: inline-block; position: relative; width: 64px; height: 64px;
-  transform: rotate(45deg); transform-origin: 32px 32px;
-}
-.heart-loader div {
-  top: 23px; left: 23px; position: absolute; width: 26px; height: 26px;
-  background: var(--pink-rich);
-  animation: heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
-  box-shadow: 0 0 10px var(--pink-glow);
-}
-.heart-loader div:after, .heart-loader div:before {
-  content: " "; position: absolute; display: block; width: 26px; height: 26px;
-  background: var(--pink-rich);
-}
-.heart-loader div:before { left: -17px; border-radius: 50% 0 0 50%; }
-.heart-loader div:after { top: -17px; border-radius: 50% 50% 0 0; }
-@keyframes heart {
-  0% { transform: scale(0.95); } 5% { transform: scale(1.1); }
-  39% { transform: scale(0.85); } 45% { transform: scale(1); }
-  60% { transform: scale(0.95); } 100% { transform: scale(0.9); }
-}
+.progress-bar { width: 200px; height: 2px; background: #222; margin-top: 20px; overflow: hidden; }
+.progress-fill { width: 0%; height: 100%; background: var(--pink-rich); transition: 0.1s; }
 
-.progress-container { width: 220px; height: 3px; background: rgba(255,255,255,0.1); margin-top: 40px; border-radius: 10px; overflow: hidden; }
-.progress-bar { width: 0%; height: 100%; background: var(--pink-rich); transition: width 0.1s linear; }
-
-.fade-out { opacity: 0; transform: scale(0.95); pointer-events: none; }
-.show-final { display: flex !important; animation: fadeIn 1s forwards; }
-@keyframes fadeIn { to { opacity: 1; } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 <body>
 
 <div class="vignette"></div>
-<div class="pink-bloom"></div>
 <canvas id="fireworks"></canvas>
 
 <div class="bento-grid" id="grid">
     <div class="box header-box">
-        <span style="font-size: 10px; letter-spacing: 3px; color: #ff85a2;">PROPOSAL DAY</span>
         <h1>RathiDevi</h1>
-        <div id="convince-msg">Palanikumar has a question for you... ❤️</div>
-    </div>
-    
-    <div class="box date-box">
-        <span>MET ON</span>
-        <b>APR 19</b>
-    </div>
-    <div class="box date-box">
-        <span>WEDDING</span>
-        <b>MAY 18</b>
     </div>
 
-    <div class="box action-box">
-        <button class="btn" id="yes">YES, FOREVER! 💍</button>
+    <div class="box question-box">
+        <p>From the moment we met on April 19, my world changed. Now, I want to make every moment permanent.</p>
+        <span>Will you marry me, Rathi?</span>
+    </div>
+
+    <div id="convince-msg">Palanikumar is waiting for your heart... ❤️</div>
+
+    <div class="box date-box"><span>MET</span><b>APR 19</b></div>
+    <div class="box date-box"><span>WEDDING</span><b>MAY 18</b></div>
+
+    <div class="action-area">
+        <button class="btn" id="yes">YES, I DO! 💍</button>
         <button class="btn" id="no">Thinking... 🤔</button>
     </div>
 </div>
 
 <div id="final-view">
-    <h2 style="font-family: 'Cinzel', serif; font-size: 36px; color: var(--pink-rich); margin-bottom: 5px; text-shadow: 0 0 20px var(--pink-glow);">SHE SAID YES!</h2>
-    <p style="font-size: 14px; letter-spacing: 2px; color: #ffbdd5; margin-bottom: 30px;">THE HAPPIEST DAY BEGINS</p>
-    
-    <div class="heart-loader"><div></div></div>
-    
-    <div class="progress-container">
-        <div class="progress-bar" id="p-bar"></div>
-    </div>
-    <p style="font-size: 11px; margin-top: 15px; color: #aaa; letter-spacing: 1px;">LOADING OUR LOVE SONG...</p>
+    <h2 style="font-family: 'Cinzel', serif; font-size: 32px; color: var(--pink-rich);">FOREVER STARTS NOW</h2>
+    <div class="heart-loader"></div>
+    <div class="progress-bar"><div class="progress-fill" id="p-fill"></div></div>
+    <p style="font-size: 10px; margin-top: 15px; letter-spacing: 2px; opacity: 0.5;">LOADING OUR STORY...</p>
 </div>
 
 <script>
 const noBtn = document.getElementById('no');
 const yesBtn = document.getElementById('yes');
-const grid = document.getElementById('grid');
 const msgBox = document.getElementById('convince-msg');
+const grid = document.getElementById('grid');
 const finalView = document.getElementById('final-view');
-const pBar = document.getElementById('p-bar');
-const spotifyLink = "https://open.spotify.com/track/0tcKP2nsBy1aiabkXQlXt5?si=IN42uNTmT0OVa4BtKUYaHg";
+const pFill = document.getElementById('p-fill');
 
-// Your Custom "Convince" Sequence
 const messages = [
-    "I'll buy you the biggest Teddy Bear! 🧸",
-    "We'll visit the coolest places together! 🌍",
-    "I'll make you go 'Ahah' & 'Haha' everyday! 😄",
-    "Wait, are you still thinking? 🤨",
-    "May 18th is fixed! No take-backs! 💍",
-    "Okay, the 'No' button is officially broken. 🔧",
-    "Fine, I surrender! Just say Yes! ❤️"
+    "I'll buy you the biggest, fluffiest Teddy Bear! 🧸", // 10%
+    "We'll travel to every 'cool' place on your bucket list! 🌍", // 20%
+    "I promise to make you go 'Aww' & 'Haha' every single day! 😄", // 30%
+    "I'll be the one to hold the umbrella in every storm. ☔", // 40%
+    "I'll remember every small detail that makes you smile. ✨", // 50%
+    "My home is wherever you are, RathiDevi. 🏠", // 60%
+    "Wait... the button is starting to crack! Stop! 😰", // 70%
+    "I'll never let a day go by without saying I love you. ❤️", // 80%
+    "You're my soulmate, my best friend, my everything. ♾️", // 90%
+    "The button is gone... There is only one answer left. ❤️" // 100%
 ];
 
-let clickCount = 0;
+let clicks = 0;
 
-function interactionHandler(e) {
-    if(e) e.preventDefault();
+// Logical "Breaking" clip-paths for 10% increments
+const damageSteps = [
+    "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", // 0%
+    "polygon(5% 0%, 100% 0%, 100% 100%, 0% 95%)",  // 10%
+    "polygon(10% 5%, 95% 0%, 100% 100%, 5% 90%)", // 20%
+    "polygon(15% 10%, 90% 5%, 95% 95%, 10% 85%)", // 30%
+    "polygon(20% 15%, 85% 10%, 90% 90%, 15% 80%)", // 40%
+    "polygon(25% 20%, 80% 15%, 85% 85%, 20% 75%)", // 50%
+    "polygon(35% 25%, 75% 20%, 80% 80%, 30% 65%)", // 60%
+    "polygon(45% 35%, 70% 30%, 75% 75%, 40% 55%)", // 70%
+    "polygon(55% 45%, 65% 40%, 70% 70%, 50% 45%)", // 80%
+    "polygon(65% 55%, 60% 50%, 65% 65%, 60% 55%)", // 90%
+    "none" // 100% - Disappear
+];
 
-    // Check if it's the Surrender State (Last Step)
-    if (clickCount >= messages.length) {
-        handleYes();
-        return;
+noBtn.addEventListener('click', () => {
+    if (clicks < 10) {
+        // Impact effect
+        noBtn.classList.add('shake');
+        setTimeout(() => noBtn.classList.remove('shake'), 200);
+
+        // Update Text
+        msgBox.innerHTML = messages[clicks];
+        
+        // Update Visual Damage
+        clicks++;
+        noBtn.style.clipPath = damageSteps[clicks];
+        
+        if (clicks === 10) {
+            setTimeout(() => {
+                noBtn.style.display = 'none';
+            }, 300);
+        }
     }
-    
-    // 1. Update Message Instantly
-    msgBox.innerText = messages[clickCount];
-    clickCount++;
-    
-    // 2. Logic for Button Movement vs Surrender
-    if (clickCount === messages.length) {
-        // SURRENDER STATE: Button stops and becomes clickable
-        noBtn.innerText = "OKAY, YES! ❤️";
-        noBtn.style.background = "#fff";
-        noBtn.style.color = "#ff0a54";
-        noBtn.style.fontWeight = "bold";
-        noBtn.style.transform = "translate(0, -110%) scale(1.1)"; // Move right above Yes button
-        noBtn.style.position = "absolute"; 
-        noBtn.style.left = "10%";
-        noBtn.style.bottom = "10px";
-        noBtn.style.border = "none";
-        noBtn.style.boxShadow = "0 10px 20px rgba(0,0,0,0.3)";
-    } else {
-        // MOVE STATE: Button jumps around
-        const x = Math.random() * 80 - 40;
-        const y = Math.random() * 60 - 30;
-        noBtn.style.transform = `translate(${x}px, ${y}px)`;
-    }
-}
-
-// Touch & Click Listeners
-noBtn.addEventListener('touchstart', interactionHandler);
-noBtn.addEventListener('click', interactionHandler);
-noBtn.addEventListener('mouseover', (e) => {
-    if (clickCount < messages.length) interactionHandler(e);
 });
 
-function handleYes() {
-    grid.classList.add('fade-out');
+yesBtn.onclick = () => {
+    grid.style.opacity = '0';
+    grid.style.transform = 'scale(0.9)';
     setTimeout(() => {
         grid.style.display = 'none';
-        finalView.classList.add('show-final');
+        finalView.style.display = 'flex';
+        finalView.style.opacity = '1';
         startCelebration();
-        startProgress();
+        
+        let w = 0;
+        const bar = setInterval(() => {
+            w++;
+            pFill.style.width = w + '%';
+            if(w >= 100) {
+                clearInterval(bar);
+                window.location.href = "https://open.spotify.com/playlist/37i9dQZF1DX4pUKp1EXpTu"; // Example romantic playlist
+            }
+        }, 100);
     }, 800);
-}
+};
 
-yesBtn.addEventListener('click', handleYes);
-
-function startProgress() {
-    let width = 0;
-    const interval = setInterval(() => {
-        width += 1;
-        pBar.style.width = width + '%';
-        if (width >= 100) {
-            clearInterval(interval);
-            window.location.href = spotifyLink;
-        }
-    }, 120); // 12 seconds
-}
-
-// Rich Pink Particle Animation
+// Firework Logic
 const canvas = document.getElementById('fireworks');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -272,28 +213,24 @@ function startCelebration() {
 }
 
 function animate() {
-    // Slight trail effect
-    ctx.fillStyle = 'rgba(18, 2, 5, 0.2)'; 
+    ctx.fillStyle = 'rgba(10, 1, 4, 0.2)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    if (Math.random() < 0.25) {
-        particles.push({
-            x: Math.random() * canvas.width,
-            y: canvas.height,
-            vx: Math.random() * 3 - 1.5,
-            vy: -Math.random() * 8 - 4,
-            life: 1,
-            size: Math.random() * 3,
-            color: Math.random() > 0.5 ? '#ff0a54' : '#ffccd5' // Hot Pink & Pale Pink
-        });
+    if (Math.random() < 0.2) {
+        const x = Math.random() * canvas.width;
+        for(let i=0; i<30; i++) {
+            particles.push({
+                x: x, y: canvas.height,
+                vx: Math.random() * 4 - 2, vy: -Math.random() * 12 - 5,
+                life: 1, c: '#ff0a54'
+            });
+        }
     }
-
     particles.forEach((p, i) => {
-        p.x += p.vx; p.y += p.vy; p.life -= 0.012; p.vy += 0.05; // Gravity
+        p.x += p.vx; p.y += p.vy; p.vy += 0.15; p.life -= 0.015;
         ctx.globalAlpha = p.life;
-        ctx.fillStyle = p.color;
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
-        if (p.life <= 0) particles.splice(i, 1);
+        ctx.fillStyle = p.c;
+        ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI*2); ctx.fill();
+        if(p.life <= 0) particles.splice(i, 1);
     });
     requestAnimationFrame(animate);
 }
