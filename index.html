@@ -17,7 +17,7 @@
     overflow: hidden;
   }
 
-  /* Fireworks Canvas - Highest Layer */
+  /* Overlay Animations */
   canvas {
     position: fixed;
     top: 0;
@@ -25,7 +25,7 @@
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 999; /* Higher than card */
+    z-index: 999; 
   }
 
   .stars {
@@ -60,6 +60,15 @@
     text-align: center;
     position: relative;
     overflow: hidden;
+    transition: all 1s ease; /* Smooth transition to transparency */
+  }
+
+  /* Transparent state for the card after "Yes" */
+  .card.clear {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
   }
 
   .msg-container {
@@ -73,7 +82,7 @@
     z-index: 11;
   }
 
-  #msg { font-size: 16px; font-weight: 600; color: #ffd1e3; text-align: center; }
+  #msg { font-size: 16px; font-weight: 600; color: #ffd1e3; }
 
   h1 { margin: 0; font-size: 34px; color: #ff85b3; text-shadow: 0 2px 15px rgba(255, 133, 179, 0.5); }
   p { font-size: 18px; line-height: 1.5; color: #f0f0f0; margin: 15px 0; }
@@ -88,12 +97,11 @@
   #yes { background: #ff4d8d; color: #fff; left: 50%; transform: translateX(-50%); bottom: 0; z-index: 100; }
   #no { background: #ffffff; color: #222; top: 0; left: 50%; transform: translateX(-50%); }
 
-  /* Rose Overlay - Top Layer */
   .rose {
     position: fixed;
     font-size: 30px;
     pointer-events: none;
-    z-index: 1000; /* Highest priority */
+    z-index: 1000;
     animation: fall linear forwards;
   }
 
@@ -110,8 +118,8 @@
 
 <div class="screen">
   <div class="card" id="mainCard">
-    <div class="msg-container">
-      <div id="msg">Every heartbeat of mine belongs to you... 🌹</div>
+    <div class="msg-container" id="msgBox">
+      <div id="msg">Thinking is fine, but I'm hoping for a 'Yes'! 😉</div>
     </div>
 
     <div id="content">
@@ -131,9 +139,11 @@
   const noBtn = document.getElementById('no');
   const yesBtn = document.getElementById('yes');
   const msg = document.getElementById('msg');
+  const msgBox = document.getElementById('msgBox');
   const content = document.getElementById('content');
+  const card = document.getElementById('mainCard');
   const canvas = document.getElementById('fireworksCanvas');
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('3d');
 
   let attempt = 0;
   const spotifyLink = "https://open.spotify.com/track/0tcKP2nsBy1aiabkXQlXt5?si=IN42uNTmT0OVa4BtKUYaHg"; 
@@ -152,8 +162,7 @@
       noBtn.style.display = 'none';
       return;
     }
-    const maxX = 250; 
-    noBtn.style.left = Math.random() * maxX + 'px';
+    noBtn.style.left = Math.random() * 200 + 'px';
     noBtn.style.top = Math.random() * 100 + 'px';
     noBtn.style.transform = 'none'; 
     msg.textContent = convince[attempt++];
@@ -161,7 +170,7 @@
 
   noBtn.addEventListener('click', moveButton);
 
-  // --- Fireworks Particle System ---
+  // --- Fireworks System ---
   let particles = [];
   function createFirework() {
     const x = Math.random() * canvas.width;
@@ -204,25 +213,25 @@
   }
 
   yesBtn.onclick = () => {
-    // Setup Canvas for overlay
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     
-    content.innerHTML = `
-      <h1 style="font-size: 42px; margin-top:40px; color: #ff4d8d; position:relative; z-index:11;">I LOVE YOU <br> RATHIDEVI ❤️</h1>
-      <p style="font-size: 22px; position:relative; z-index:11;">Forever starts with us.</p>
-    `;
-    msg.textContent = "🎆 LOOK AT THE SKY! 🎆";
+    // Make card transparent and hide message box
+    card.classList.add('clear');
+    msgBox.style.display = 'none';
     
-    // Start Visuals
+    content.innerHTML = `
+      <h1 style="font-size: 46px; margin-top:80px; color: #ff4d8d; text-shadow: 0 0 20px #ff4d8d;">I LOVE YOU <br> RATHIDEVI ❤️</h1>
+      <p style="font-size: 24px; font-weight: bold; color: white;">Forever starts now.</p>
+    `;
+    
     animateFireworks();
     const fInterval = setInterval(createFirework, 500);
     const rInterval = setInterval(spawnRose, 200);
 
-    // After 10 Seconds, open Spotify in NEW TAB so animation continues here
+    // 10 second delay for Spotify
     setTimeout(() => {
       window.open(spotifyLink, '_blank');
-      // Keep animations running for a total of 20 seconds before slowing down
       setTimeout(() => {
          clearInterval(fInterval);
          clearInterval(rInterval);
@@ -230,13 +239,11 @@
     }, 10000);
   };
 
-  // Pre-generate stars
   const starField = document.getElementById('starField');
   for (let i = 0; i < 100; i++) {
     const star = document.createElement('div');
     star.style.position = 'absolute';
-    star.style.width = '2px';
-    star.style.height = '2px';
+    star.style.width = '2px'; star.style.height = '2px';
     star.style.background = 'white';
     star.style.top = Math.random() * 100 + '%';
     star.style.left = Math.random() * 100 + '%';
